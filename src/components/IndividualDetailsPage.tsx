@@ -1,3 +1,4 @@
+import { IndividualDetailsCardPagination } from './IndividualDetailsCardPagination';
 import React from 'react';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
@@ -35,7 +36,7 @@ const IndividualDetailsPage: React.FC<IndividualDetailsPageProps> = ({
   };
 
   return (
-    <div className={styles.container}>
+  <div className={styles.container}>
       <div className={styles.title}>
         <div className={styles.titleText}>{title}</div>
         <div className={styles.titleHeart}>
@@ -76,6 +77,9 @@ const IndividualDetailsPage: React.FC<IndividualDetailsPageProps> = ({
           <div className={styles.statValue}>${revenue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
         </div>
       </div>
+
+      <IndividualDetailsCardPagination />
+
     </div>
   );
 };

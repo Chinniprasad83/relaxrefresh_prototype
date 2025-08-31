@@ -42,7 +42,7 @@
 .image {
   background-color: #e8f5e9 !important;
   width: 80%;
-  height: auto;
+  height: 100px;
   max-width: 220px;
   object-fit: cover;
   border-radius: 12px;
