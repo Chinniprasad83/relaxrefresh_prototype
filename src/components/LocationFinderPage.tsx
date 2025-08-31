@@ -7,6 +7,7 @@ import DetailsPanel from './DetailsPanel'
 import LocationDetialsPagination from './LocationDetailsPagination'
 import BottomNav from './BottomNav'
 import Header from './Header'
+import ModeSelector from './ModeSelector'
 // image served from public/ as /avatar.svg
 
 export default function LocationFinderPage(): JSX.Element {
@@ -60,32 +61,12 @@ export default function LocationFinderPage(): JSX.Element {
       <div className={styles.content}>
         <section className={styles.controls} aria-label="Search controls">
          
-          {/* View mode selector: Map (default) or List */}
+          {/* View mode selector: Map (default) or List using ModeSelector */}
           <div className={styles.row}>
-            <span>Stall Location search</span>
-            <label className={styles.radioLabel}>
-              <input
-                type="radio"
-                name="viewMode"
-                value="map"
-                checked={viewMode === 'map'}
-                onChange={() => handleSetViewMode('map')}
-                aria-checked={viewMode === 'map'}
-              />
-              <span>Map</span>
-            </label>
-
-            <label className={styles.radioLabel}>
-              <input
-                type="radio"
-                name="viewMode"
-                value="list"
-                checked={viewMode === 'list'}
-                onChange={() => handleSetViewMode('list')}
-                aria-checked={viewMode === 'list'}
-              />
-              <span>List</span>
-            </label>
+            <ModeSelector
+              selectedMode={viewMode}
+              onSelect={handleSetViewMode}
+            />
           </div>
         </section>
 

@@ -12,8 +12,10 @@
 	flex-direction: column;
 	gap: var(--space-4);
 	/* create a stacking context where header and bottom nav are outside the scrollable content */
-	align-self: stretch; /* fill the root container (override root centering) */
-	padding: 0; /* we'll handle internal padding on the scrollable content */
+	align-self: stretch;
+	/* fill the root container (override root centering) */
+	padding: 0;
+	/* we'll handle internal padding on the scrollable content */
 }
 
 /* Top bar */
@@ -35,13 +37,32 @@
 	align-items: center;
 	justify-content: center;
 }
-.iconBtn:focus-visible { outline: 3px solid color-mix(in srgb, var(--color-accent) 20%, transparent); outline-offset: 2px }
 
-.titleWrap { flex: 1 1 auto; }
-.title { font-size: var(--heading-2); color: var(--color-accent); margin: 0; line-height: 1; }
-.subtitle { margin: 2px 0 0 0; color: var(--color-text-soft); font-size: var(--text-sm); }
+.iconBtn:focus-visible {
+	outline: 3px solid color-mix(in srgb, var(--color-accent) 20%, transparent);
+	outline-offset: 2px
+}
 
-.titleSection { padding: 0 var(--space-2); }
+.titleWrap {
+	flex: 1 1 auto;
+}
+
+.title {
+	font-size: var(--heading-2);
+	color: var(--color-accent);
+	margin: 0;
+	line-height: 1;
+}
+
+.subtitle {
+	margin: 2px 0 0 0;
+	color: var(--color-text-soft);
+	font-size: var(--text-sm);
+}
+
+.titleSection {
+	padding: 0 var(--space-2);
+}
 
 /* Hero header (blue rounded area) */
 .hero {
@@ -56,20 +77,62 @@
 	margin-left: calc(var(--space-4) * -1);
 	margin-right: calc(var(--space-4) * -1);
 	width: calc(100% + (var(--space-4) * 2));
-	min-height: calc(var(--touch-min) + 4px); /* keep touch area comfortable */
+	min-height: calc(var(--touch-min) + 4px);
+	/* keep touch area comfortable */
 }
-.heroTitle { display:flex; flex-direction:column; align-items:center; gap:2px; justify-self:center; }
-.hero .title { color: var(--color-primary-contrast); font-size: var(--text-lg); font-weight:600; margin:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.hero .subtitle { color: color-mix(in srgb, var(--color-primary-contrast) 85%, transparent); font-size: var(--text-sm); }
-.hero .iconBtn { color: var(--color-primary-contrast); }
+
+.heroTitle {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 2px;
+	justify-self: center;
+}
+
+.hero .title {
+	color: var(--color-primary-contrast);
+	font-size: var(--text-lg);
+	font-weight: 600;
+	margin: 0;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.hero .subtitle {
+	color: color-mix(in srgb, var(--color-primary-contrast) 85%, transparent);
+	font-size: var(--text-sm);
+}
+
+.hero .iconBtn {
+	color: var(--color-primary-contrast);
+}
+
 /* visual avatar size inside compact header (keep clickable area via .iconBtn) */
-.hero .avatar { width:20px; height:20px; border: 2px solid rgba(255,255,255,0.9); border-radius:999px; object-fit:cover; display:block; }
-.avatar { width: 20px; height: 20px; border-radius: 999px; object-fit: cover; }
+.hero .avatar {
+	width: 20px;
+	height: 20px;
+	border: 2px solid rgba(255, 255, 255, 0.9);
+	border-radius: 999px;
+	object-fit: cover;
+	display: block;
+}
+
+.avatar {
+	width: 20px;
+	height: 20px;
+	border-radius: 999px;
+	object-fit: cover;
+}
 
 /* ensure clickable area remains large for touch by wrapping icon/avatars with padding in markup or using the button's min size */
 
 /* Controls */
-.controls { display: flex; flex-direction: column; gap: var(--space-3); }
+.controls {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-3);
+}
 
 /* Scrollable content wrapper: fills available space between header and bottom nav */
 .content {
@@ -78,19 +141,34 @@
 	overflow-y: auto;
 	/* use 8px padding as requested (tokens: var(--space-2) ~ 8px) */
 	padding: var(--space-2);
-	padding-bottom: calc(var(--space-2) + 56px); /* ensure content isn't hidden under bottom nav */
+	padding-bottom: calc(var(--space-2) + 56px);
+	/* ensure content isn't hidden under bottom nav */
 	display: flex;
 	flex-direction: column;
 	gap: var(--space-2);
 }
-.row { display:flex; gap: var(--space-3); align-items:center; }
+
+.row {
+	display: flex;
+	gap: var(--space-3);
+	align-items: stretch;
+	width: 100%;
+}
+
+/* Ensure ModeSelector stretches to fill available space in .row */
+.modeSelectorWrap {
+	flex: 1 1 0;
+	display: flex;
+	align-items: center;
+}
 
 /* Search input shared style */
 .searchInput {
 	background: var(--color-surface);
 	border: 1px solid var(--color-border);
 	padding: 6px 8px;
-	border-radius: 10px; /* rounded edges */
+	border-radius: 10px;
+	/* rounded edges */
 	min-height: 36px;
 	font-size: var(--text-sm);
 	color: var(--color-text);
@@ -99,32 +177,86 @@
 	/* allow inputs to shrink and share available space */
 	flex: 1 1 0;
 }
-.searchInput:focus { box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 12%, transparent); }
-.radioLabel { display:inline-flex; align-items:center; gap:8px; font-size:var(--text-sm); color:var(--color-text-soft); }
 
-.chips { display:flex; gap: var(--space-2); }
-.chip { background: var(--color-surface); border: 1px solid var(--color-border); padding: 8px 12px; border-radius: 999px; font-size: var(--text-sm); min-height: var(--touch-min); display:inline-flex; align-items:center; gap:8px; }
-.chip:focus-visible { outline: 3px solid color-mix(in srgb, var(--color-accent) 18%, transparent); }
+.searchInput:focus {
+	box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 12%, transparent);
+}
 
-.selectLabel { margin-left: 0; }
-.select { background: var(--color-surface); border: 1px solid var(--color-border); padding: 8px 10px; border-radius: 12px; min-height: var(--touch-min); font-size: var(--text-sm); flex: 0 0 auto; }
+.radioLabel {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	font-size: var(--text-sm);
+	color: var(--color-text-soft);
+}
+
+.chips {
+	display: flex;
+	gap: var(--space-2);
+}
+
+.chip {
+	background: var(--color-surface);
+	border: 1px solid var(--color-border);
+	padding: 8px 12px;
+	border-radius: 999px;
+	font-size: var(--text-sm);
+	min-height: var(--touch-min);
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.chip:focus-visible {
+	outline: 3px solid color-mix(in srgb, var(--color-accent) 18%, transparent);
+}
+
+.selectLabel {
+	margin-left: 0;
+}
+
+.select {
+	background: var(--color-surface);
+	border: 1px solid var(--color-border);
+	padding: 8px 10px;
+	border-radius: 12px;
+	min-height: var(--touch-min);
+	font-size: var(--text-sm);
+	flex: 0 0 auto;
+}
 
 /* Make the label + select align nicely and keep overall row on one line */
-.selectLabel { display: inline-flex; align-items: center; gap: 8px; }
+.selectLabel {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+}
 
 /* On small widths ensure layout doesn't wrap; inputs will shrink before wrapping */
-.row { flex-wrap: nowrap; }
+.row {
+	flex-wrap: nowrap;
+}
 
 /* Compact variant: tighter spacing and smaller controls to fit three items */
-.compactRow { gap: 8px; align-items: center; }
+.compactRow {
+	gap: 8px;
+	align-items: center;
+}
+
 /* make inputs smaller and bounded so three controls are visible */
-.compactRow { --gap: 8px; display:flex; gap: var(--gap); align-items: center; }
+.compactRow {
+	--gap: 8px;
+	display: flex;
+	gap: var(--gap);
+	align-items: center;
+}
 
 /* Give each of the three controls an equal share of the row (subtract two gaps) */
-.compactRow > * {
+.compactRow>* {
 	flex: 0 0 calc((100% - (var(--gap) * 2)) / 3);
 	box-sizing: border-box;
-	min-width: 64px; /* avoid collapsing on very small screens */
+	min-width: 64px;
+	/* avoid collapsing on very small screens */
 }
 
 /* TextSearch wrapper (the class passed from JSX) */
@@ -166,7 +298,8 @@
 	box-sizing: border-box;
 	white-space: nowrap;
 	overflow: hidden;
-	text-overflow: ellipsis; /* show ellipsis when content overflows */
+	text-overflow: ellipsis;
+	/* show ellipsis when content overflows */
 	-webkit-appearance: none;
 	appearance: none;
 	box-shadow: none;
@@ -174,7 +307,8 @@
 
 /* On focus allow caret and scrolling (visual ellipsis removed) */
 .searchInput input:focus {
-	text-overflow: clip; /* allow natural scrolling while focused */
+	text-overflow: clip;
+	/* allow natural scrolling while focused */
 }
 
 /* focus ring applied to wrapper for accessible outline */
@@ -184,7 +318,8 @@
 }
 
 /* Select should visually match inputs */
-.compactRow select, .compactRow .select {
+.compactRow select,
+.compactRow .select {
 	width: 100%;
 	height: 40px;
 	border-radius: 12px;
@@ -196,7 +331,11 @@
 }
 
 /* make the inline svg wrapper align with input height */
-.compactRow span[aria-hidden] { display:inline-flex; align-items:center; color:var(--color-text-soft); }
+.compactRow span[aria-hidden] {
+	display: inline-flex;
+	align-items: center;
+	color: var(--color-text-soft);
+}
 
 /* Map */
 .mapSection {
@@ -207,8 +346,10 @@
 	border-radius: var(--radius-lg);
 	overflow: hidden;
 	box-shadow: var(--shadow-card);
-	min-height: 300px; /* fallback on very small screens */
+	min-height: 300px;
+	/* fallback on very small screens */
 }
+
 .mapWrapper {
 	width: 100%;
 	height: 100%;
@@ -218,20 +359,30 @@
 	/* ensure wrapper expands to fill the flex container */
 	flex: 1 1 auto;
 }
-.map { width: 100%; height: 100%; display: block; border: 0; }
+
+.map {
+	width: 100%;
+	height: 100%;
+	display: block;
+	border: 0;
+}
 
 /* Map overlay: position the small search control over the top-left of the map */
 .mapOverlay {
 	position: absolute;
 	top: 12px;
 	left: 12px;
-	right: 12px; /* allow some responsiveness on narrow screens */
-	pointer-events: none; /* allow clicks to pass through except the control itself */
+	right: 12px;
+	/* allow some responsiveness on narrow screens */
+	pointer-events: none;
+	/* allow clicks to pass through except the control itself */
 	/* ensure the overlay group can be stacked above the map click-catcher when needed */
 	z-index: 6;
 }
+
 .mapSearch {
-	pointer-events: auto; /* enable interaction with the search control */
+	pointer-events: auto;
+	/* enable interaction with the search control */
 	max-width: 420px;
 	/* keep the search control in its own stacking context above the map overlay */
 	position: relative;
@@ -242,7 +393,8 @@
    It sits above the iframe but below any mapOverlay controls (z-index ordering). */
 .mapClickOverlay {
 	position: absolute;
-	inset: 0; /* cover the entire map container */
+	inset: 0;
+	/* cover the entire map container */
 	z-index: 3;
 	background: transparent;
 	cursor: pointer;
@@ -251,31 +403,130 @@
 }
 
 /* Results list */
-.results { display: flex; flex-direction: column; gap: var(--space-3); }
-.resultsHeading { font-size: var(--text-md); color: var(--color-accent); margin: 0; padding: var(--space-2) 0; }
+.results {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-3);
+}
 
-.card { display: flex; gap: var(--space-3); background: var(--color-surface); border-radius: var(--radius-md); padding: var(--space-3); align-items: center; box-shadow: var(--shadow-card); }
-.cardMedia img { width: 80px; height: 60px; object-fit: cover; border-radius: 8px; }
-.cardBody { flex: 1 1 auto; }
-.cardTitle { font-size: var(--text-md); margin: 0 0 6px 0; color: var(--color-accent); }
-.cardMeta { margin: 0; font-size: var(--text-sm); color: var(--color-text-soft); }
-.cardFooter { display:flex; align-items:center; gap: var(--space-3); margin-top: var(--space-2); }
-.spaceLabel { font-size: var(--text-sm); color: var(--color-text); }
-.detailsBtn { background: var(--color-primary); color: var(--color-primary-contrast); border: none; padding: 8px 12px; border-radius: 999px; min-height: var(--touch-min); }
-.detailsBtn:focus-visible { outline: 3px solid color-mix(in srgb, var(--color-primary) 18%, transparent); }
+.resultsHeading {
+	font-size: var(--text-md);
+	color: var(--color-accent);
+	margin: 0;
+	padding: var(--space-2) 0;
+}
 
-.distance { font-weight:700; color: var(--color-accent); margin-left: 8px; }
+.card {
+	display: flex;
+	gap: var(--space-3);
+	background: var(--color-surface);
+	border-radius: var(--radius-md);
+	padding: var(--space-3);
+	align-items: center;
+	box-shadow: var(--shadow-card);
+}
+
+.cardMedia img {
+	width: 80px;
+	height: 60px;
+	object-fit: cover;
+	border-radius: 8px;
+}
+
+.cardBody {
+	flex: 1 1 auto;
+}
+
+.cardTitle {
+	font-size: var(--text-md);
+	margin: 0 0 6px 0;
+	color: var(--color-accent);
+}
+
+.cardMeta {
+	margin: 0;
+	font-size: var(--text-sm);
+	color: var(--color-text-soft);
+}
+
+.cardFooter {
+	display: flex;
+	align-items: center;
+	gap: var(--space-3);
+	margin-top: var(--space-2);
+}
+
+.spaceLabel {
+	font-size: var(--text-sm);
+	color: var(--color-text);
+}
+
+.detailsBtn {
+	background: var(--color-primary);
+	color: var(--color-primary-contrast);
+	border: none;
+	padding: 8px 12px;
+	border-radius: 999px;
+	min-height: var(--touch-min);
+}
+
+.detailsBtn:focus-visible {
+	outline: 3px solid color-mix(in srgb, var(--color-primary) 18%, transparent);
+}
+
+.distance {
+	font-weight: 700;
+	color: var(--color-accent);
+	margin-left: 8px;
+}
 
 /* Bottom navigation - fixed */
-.bottomNav { position: fixed; left: 0; right: 0; bottom: 0; height: 56px; display:flex; gap:0; background: var(--color-primary); align-items:center; justify-content:space-around; padding:0 var(--space-4); }
-.navBtn { background: transparent; color: var(--color-primary-contrast); border: none; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; min-width: 56px; min-height: 44px; }
-.navBtn:focus-visible { outline: 3px solid color-mix(in srgb, var(--color-primary-contrast) 20%, transparent); }
-.navLabel { font-size: var(--text-xs); }
+.bottomNav {
+	position: fixed;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height: 56px;
+	display: flex;
+	gap: 0;
+	background: var(--color-primary);
+	align-items: center;
+	justify-content: space-around;
+	padding: 0 var(--space-4);
+}
+
+.navBtn {
+	background: transparent;
+	color: var(--color-primary-contrast);
+	border: none;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 4px;
+	min-width: 56px;
+	min-height: 44px;
+}
+
+.navBtn:focus-visible {
+	outline: 3px solid color-mix(in srgb, var(--color-primary-contrast) 20%, transparent);
+}
+
+.navLabel {
+	font-size: var(--text-xs);
+}
 
 /* Prevent horizontal scroll */
-html, body, #root { overflow-x: hidden; }
+html,
+body,
+#root {
+	overflow-x: hidden;
+}
 
 /* Larger screens: keep centered content */
 @media (min-width: 480px) {
-	.page { padding-left: calc((100% - 375px)/2); padding-right: calc((100% - 375px)/2); }
+	.page {
+		padding-left: calc((100% - 375px)/2);
+		padding-right: calc((100% - 375px)/2);
+	}
 }
