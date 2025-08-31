@@ -27,7 +27,7 @@ export default function Header({ title = 'Location Finder', subtitle, avatarSrc 
         )}
 
         <div className={styles.heroTitle}>
-          <h1 id="locationTitle" className={styles.title}>{title}</h1>
+          <div id="locationTitle" className={styles.title}>{title}</div>
           {subtitle && <div className={styles.subtitle}>{subtitle}</div>}
         </div>
 

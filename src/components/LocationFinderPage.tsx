@@ -105,7 +105,7 @@ export default function LocationFinderPage(): JSX.Element {
                 onChange={() => handleSetViewMode('map')}
                 aria-checked={viewMode === 'map'}
               />
-              <span>Map view</span>
+              <span>Map</span>
             </label>
 
             <label className={styles.radioLabel}>
@@ -117,7 +117,7 @@ export default function LocationFinderPage(): JSX.Element {
                 onChange={() => handleSetViewMode('list')}
                 aria-checked={viewMode === 'list'}
               />
-              <span>List view</span>
+              <span>List</span>
             </label>
           </div>
         </section>

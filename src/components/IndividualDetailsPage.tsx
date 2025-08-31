@@ -45,7 +45,23 @@ const IndividualDetailsPage: React.FC<IndividualDetailsPageProps> = ({
             onClick={handleHeartClick}
             aria-label={selected ? 'Unselect favorite' : 'Select favorite'}
           >
-            {selected ? '❤️' : '🤍'}
+            {selected ? '❤️' : (
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                style={{ verticalAlign: 'middle' }}
+              >
+                <path
+                  d="M12 21s-6.5-5.05-8.5-8.05C1.5 9.5 3.5 6 7 6c1.54 0 3.04.99 4 2.44C12.96 6.99 14.46 6 16 6c3.5 0 5.5 3.5 3.5 6.95C18.5 15.95 12 21 12 21z"
+                  stroke="#000"
+                  strokeWidth="2"
+                  fill="none"
+                />
+              </svg>
+            )}
           </span>
         </div>
       </div>
