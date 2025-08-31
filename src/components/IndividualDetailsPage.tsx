@@ -36,7 +36,7 @@ const IndividualDetailsPage: React.FC<IndividualDetailsPageProps> = ({
   };
 
   return (
-  <div className={styles.container}>
+    <div className={styles.container}>
       <div className={styles.title}>
         <div className={styles.titleText}>{title}</div>
         <div className={styles.titleHeart}>
@@ -51,7 +51,7 @@ const IndividualDetailsPage: React.FC<IndividualDetailsPageProps> = ({
       </div>
       <div className={styles.address}>{address}</div>
       {/* Carousel for images */}
-         <Carousel showThumbs={false} showStatus={false} autoPlay={true} infiniteLoop={true} interval={2000}>
+      <Carousel showThumbs={false} showStatus={false} autoPlay={true} infiniteLoop={true} interval={2000}>
         {(Array.isArray(imageSrc) ? imageSrc : [imageSrc]).map((src, idx) => (
           <div key={idx}>
             <img src={src} alt={title} className={styles.image} />
@@ -78,7 +78,30 @@ const IndividualDetailsPage: React.FC<IndividualDetailsPageProps> = ({
         </div>
       </div>
 
-      <IndividualDetailsCardPagination />
+
+      <div className={styles.cardPaginationWrapper}>
+        <IndividualDetailsCardPagination />
+      </div>
+      <div>
+        <form className={styles.queryForm}>
+          <textarea
+            id="userQuery"
+            name="userQuery"
+            className={styles.queryTextarea}
+            placeholder="Submit your queries  here"
+          />
+          <button
+            id="submitQueryBtn"
+            name="submitQueryBtn"
+            type="submit"
+            className={styles.submitButton}
+          >
+            Submit
+          </button>
+        </form>
+
+      </div>
+
 
     </div>
   );

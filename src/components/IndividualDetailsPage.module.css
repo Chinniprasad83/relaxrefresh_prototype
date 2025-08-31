@@ -1,3 +1,42 @@
+.queryForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 24px;
+}
+
+.queryTextarea {
+  width: 100%;
+  min-height: 80px;
+  border: 2px solid #3f51b5;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 1.2rem;
+  color: #333;
+  background: #f9f9fb;
+  margin-bottom: 12px;
+  resize: vertical;
+}
+
+.submitButton {
+  background: #3f51b5;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 32px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  transition: background 0.2s;
+}
+
+.submitButton:hover {
+  background: #2c387e;
+}
+.cardPaginationWrapper {
+  padding-top: 18px;
+  min-height: 250px;
+}
 /* Title styles moved from inline */
 .title {
   display: flex;
