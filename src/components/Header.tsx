@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from './LocationFinderPage.module.css'
+import styles from './Header.module.css'
 
 type Props = {
   title?: string

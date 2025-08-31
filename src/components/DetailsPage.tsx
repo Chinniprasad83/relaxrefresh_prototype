@@ -1,9 +1,9 @@
 import React from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import DetailsPanel from './DetailsPanel'
 import Header from './Header'
 import BottomNav from './BottomNav'
-import styles from './LocationFinderPage.module.css'
+import IndividualDetailsPage from './IndividualDetailsPage'
+import styles from './DetailsPage.module.css'
 
 export default function DetailsPage(): JSX.Element {
   const loc = useLocation()
@@ -17,16 +17,23 @@ export default function DetailsPage(): JSX.Element {
     return <div />
   }
 
-  // DetailsPanel currently renders static content; pass item as props if updated
+  // Use IndividualDetailsPage to show details
   return (
-    <main className={styles.page} aria-labelledby="locationTitle">
+    <main className={styles.page} aria-labelledby="Details Page">
       <Header title="Location Details" />
       <div className={styles.content}>
-        <div style={{ padding: 8 }}>
-          <button onClick={() => navigate(-1)} style={{ marginBottom: 12 }}>← Back</button>
-          <div>
-            <strong>Coordinates:</strong> {item.lat ?? '—'}, {item.lng ?? '—'}
-          </div>
+        <button className={styles.backButton} onClick={() => navigate(-1)}>← Back</button>
+        {/* Render IndividualDetailsPage with item props */}
+        <div style={{ height: '500px' }}>
+          <IndividualDetailsPage
+            title={item.title || 'HP, Thindivanam'}
+            address={item.address || 'GST road ,NH45 Naikar Travan, THINDIVANAM'}
+            imageSrc={item.imageSrc || '/details.png'}
+            description={item.description || 'On key national highways connecting Chennai with southern and western Tamil Nadu, as well as Bengaluru,'}
+            highlights={item.highlights || ['Highlight 1', 'Highlight 2', 'Highlight 3']}
+            vehiclesPerDay={item.vehiclesPerDay || 42}
+            revenue={item.revenue || 3779.58}
+          />
         </div>
       </div>
       <BottomNav />

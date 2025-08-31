@@ -1,0 +1,31 @@
+.page {
+  background: #f7f8fa;
+  min-height: 100vh;
+  padding-bottom: 64px;
+}
+
+.content {
+	/* take remaining vertical space */
+	flex: 1 1 auto;
+	overflow-y: auto;
+	/* use 8px padding as requested (tokens: var(--space-2) ~ 8px) */
+	padding: var(--space-2);
+	padding-bottom: calc(var(--space-2) + 56px); /* ensure content isn't hidden under bottom nav */
+	display: flex;
+	flex-direction: column;
+}
+
+.backButton {
+  background: #e3e6f5;
+  color: #2d3a8c;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.backButton:hover {
+  background: #d1d8f6;
+}
