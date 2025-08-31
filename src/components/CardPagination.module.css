@@ -1,0 +1,158 @@
+/* CardPagination generic styles - moved from LocationDetailsPagination.module.css */
+
+:root {
+  --card-bg: #ffffff;
+  --accent: #1e6fb8;
+  --card-media-height: 80px;
+}
+
+.resultsList {
+  display: flex;
+  flex-direction: column;
+    gap: 8px;
+    background: transparent;
+}
+
+/* Debug styles are consolidated at the end of this file. */
+
+.card {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 0;
+  padding: 0;
+  background: var(--card-bg);
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+   width: 100%;
+  max-width: 600px;
+  margin: 8px auto;
+  /* border: 2px dashed #1976d2; */
+}
+.leftCol {
+  width: 50%;
+  flex: 0 0 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+}
+
+.image {
+  background-color: #e8f5e9 !important;
+  width: 80%;
+  height: auto;
+  max-width: 220px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.10);
+  /* border: 2px dashed #388e3c; */
+}
+
+.details {
+  width: 50%;
+  flex: 0 0 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  margin: 0;
+  padding: 0 8px;
+}
+
+.cardTitle {
+  font-size: 0.5rem;
+  font-weight: 700;
+  color: #1976d2;
+  line-height: 1.1;
+  margin-bottom: 8px;
+  word-break: keep-all;
+  white-space: normal;
+  overflow-wrap: break-word;
+  white-space: normal;
+  overflow: visible;
+  word-break: break-word;
+}
+
+.detailsList {
+  margin-top: 0.4rem;
+}
+
+.resultsFound {
+  font-size: 0.9rem;
+  margin: 0;
+  margin-bottom: 0.25rem;
+  color: #222;
+}
+
+.detailsGrid {
+  display: grid;
+  grid-template-columns: 100%;
+  gap: 0.5rem 1rem;
+  align-items: start;
+}
+
+.detailsList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.detailRow {
+  display: flex;
+  gap: 0.12rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.detailLabel {
+  color: #888;
+  font-size: 0.5rem;
+  font-weight: 400;
+  flex: 0 0 60px;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.detailValue {
+  color: #222;
+  font-size: 0.5rem;
+  font-weight: 700;
+  flex: 1 1 auto;
+  min-width: 0;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  max-width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.loadMoreWrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+
+.loadMoreBtn {
+  padding: 0.4rem 1.2rem;
+  font-size: 0.9rem;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  width: 100%;
+  background: transparent;
+   min-height: 120px;
+}
+
