@@ -17,6 +17,13 @@
   margin-bottom: 12px;
   resize: vertical;
 }
+/* Custom placeholder style for theme alignment */
+.queryTextarea::placeholder {
+  color: #888;
+  font-size: 1.1rem;
+  font-family: inherit;
+  opacity: 1;
+}
 
 .submitButton {
   background: #3f51b5;
