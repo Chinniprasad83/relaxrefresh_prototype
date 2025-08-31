@@ -22,7 +22,7 @@ export default function DetailsPage(): JSX.Element {
     <main className={styles.page} aria-labelledby="Details Page">
       <Header title="Location Details" />
       <div className={styles.content}>
-        <button className={styles.backButton} onClick={() => navigate(-1)}>← Back</button>
+        <button className={styles.backButton} onClick={() => navigate(-1)}>← Back to search</button>
         {/* Render IndividualDetailsPage with item props */}
         <div >
             <IndividualDetailsPage
