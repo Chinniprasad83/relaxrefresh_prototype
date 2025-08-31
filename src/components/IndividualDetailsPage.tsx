@@ -3,6 +3,7 @@ import React from 'react';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import styles from './IndividualDetailsPage.module.css';
+import Overlay from './Overlay';
 
 interface IndividualDetailsPageProps {
   title: string;
@@ -25,18 +26,24 @@ const IndividualDetailsPage: React.FC<IndividualDetailsPageProps> = ({
 }) => {
   const [selected, setSelected] = React.useState(false);
   const [selectedRecord, setSelectedRecord] = React.useState<any>(null);
+  const [showOverlay, setShowOverlay] = React.useState(false);
 
   const handleHeartClick = () => {
-    setSelected(!selected);
     if (!selected) {
+      setSelected(true);
       setSelectedRecord({ title, address, imageSrc, description, highlights, vehiclesPerDay, revenue });
+      setShowOverlay(true);
     } else {
+      setSelected(false);
       setSelectedRecord(null);
     }
   };
 
   return (
     <div className={styles.container}>
+      {showOverlay && (
+  <Overlay onClose={() => setShowOverlay(false)}>{/* Overlay content can go here */}<></></Overlay>
+      )}
       <div className={styles.title}>
         <div className={styles.titleText}>{title}</div>
         <div className={styles.titleHeart}>
@@ -98,25 +105,7 @@ const IndividualDetailsPage: React.FC<IndividualDetailsPageProps> = ({
       <div className={styles.cardPaginationWrapper}>
         <IndividualDetailsCardPagination />
       </div>
-      <div>
-        <form className={styles.queryForm}>
-          <textarea
-            id="userQuery"
-            name="userQuery"
-            className={styles.queryTextarea}
-            placeholder="Submit your queries  here"
-          />
-          <button
-            id="submitQueryBtn"
-            name="submitQueryBtn"
-            type="submit"
-            className={styles.submitButton}
-          >
-            Submit
-          </button>
-        </form>
 
-      </div>
 
 
     </div>
