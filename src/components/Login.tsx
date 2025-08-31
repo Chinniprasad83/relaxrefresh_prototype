@@ -33,7 +33,7 @@ export default function Login(): JSX.Element {
     setTimeout(() => {
       setLoading(false)
       announce('Logged in (mock).')
-      navigate('/app')
+  navigate('/locationfindersearch')
     }, 900)
   }
 

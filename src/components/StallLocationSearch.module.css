@@ -1,0 +1,224 @@
+.container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem 0;
+}
+
+.label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #222;
+}
+
+
+.toggleWrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Hide default checkbox */
+.toggle {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
+}
+
+/* Custom slider */
+.slider {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 22px;
+  background: #ccc;
+  border-radius: 22px;
+  transition: background 0.2s;
+  vertical-align: middle;
+}
+
+.slider:before {
+  content: "";
+  position: absolute;
+  left: 3px;
+  top: 3px;
+  width: 16px;
+  height: 16px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform 0.2s;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+
+.toggle:checked + .slider {
+  background: #0078d4;
+}
+
+.toggle:checked + .slider:before {
+  transform: translateX(18px);
+}
+
+.toggleLabel {
+  font-size: 0.8rem;
+  color: #444;
+  margin-left: 0.5rem;
+}
+/* Container for the whole component */
+.stallLocationContainer {
+  max-width: 500px;
+  margin: 1rem auto;
+  background: #f8f9fa;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  padding: 1rem 1rem;
+}
+
+.headerRow {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.headerLabel {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #222;
+}
+
+.toggleWrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.toggle {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
+}
+
+.slider {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 22px;
+  background: #ccc;
+  border-radius: 22px;
+  transition: background 0.2s;
+  vertical-align: middle;
+}
+.slider:before {
+  content: "";
+  position: absolute;
+  left: 3px;
+  top: 3px;
+  width: 16px;
+  height: 16px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform 0.2s;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+.toggle:checked + .slider {
+  background: #0078d4;
+}
+.toggle:checked + .slider:before {
+  transform: translateX(18px);
+}
+.toggleLabel {
+  font-size: 0.9rem;
+  color: #444;
+  margin-left: 0.5rem;
+}
+
+/* Section below toggle */
+.sectionFieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+.sectionFieldset[disabled] {
+  opacity: 0.6;
+}
+
+.inputRow {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.2rem;
+}
+.inputCol {
+  flex: 1;
+  position: relative;
+}
+.inputCol label {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin-bottom: 0.3rem;
+  color: #333;
+}
+.inputCol input,
+.inputCol select {
+  width: 100%;
+  padding: 0.5rem 0.7rem;
+  border: 1px solid #bbb;
+  border-radius: 6px;
+  font-size: 1rem;
+  background: #fff;
+  transition: border 0.2s;
+}
+.inputCol input:focus,
+.inputCol select:focus {
+  border-color: #0078d4;
+  outline: none;
+}
+.autocompleteList {
+  background: #fff;
+  border: 1px solid #ccc;
+  position: absolute;
+  z-index: 2;
+  width: 100%;
+  max-height: 180px;
+  overflow-y: auto;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+}
+.autocompleteItem {
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 0.98rem;
+}
+.autocompleteItem:hover {
+  background: #e6f0fa;
+}
+
+.supplierRow {
+  display: flex;
+  gap: 1rem;
+}
+.supplierCol {
+  flex: 1;
+}
+.goButtonCol {
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+}
+.goButton {
+  width: 100%;
+  padding: 0.6rem 0;
+  background: #0078d4;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.goButton:disabled {
+  background: #b3c6e0;
+  cursor: not-allowed;
+}
