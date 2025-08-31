@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from './LocationFinderPage.module.css'
+import styles from './Header.module.css'
 
 type Props = {
   title?: string
@@ -27,7 +27,7 @@ export default function Header({ title = 'Location Finder', subtitle, avatarSrc 
         )}
 
         <div className={styles.heroTitle}>
-          <h1 id="locationTitle" className={styles.title}>{title}</h1>
+          <div id="locationTitle" className={styles.title}>{title}</div>
           {subtitle && <div className={styles.subtitle}>{subtitle}</div>}
         </div>
 

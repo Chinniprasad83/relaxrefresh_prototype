@@ -19,6 +19,7 @@ export type CardPaginationProps<T> = {
   renderHeader?: (item: T) => React.ReactNode;
   renderDetails?: (item: T) => React.ReactNode;
   onCardClick?: (item: T) => void;
+  resultsLabel?: string;
 };
 
 function getImageFromItem(item: any): string | undefined {
@@ -73,6 +74,7 @@ export function CardPagination<T>({
   renderDetails,
   fieldMap,
   onCardClick,
+  resultsLabel,
 }: CardPaginationProps<T>) {
   const [visible, setVisible] = useState<number>(Math.min(initialVisible, items.length));
 
@@ -81,8 +83,10 @@ export function CardPagination<T>({
   }
 
   return (
-  <section className={[styles.resultsList].filter(Boolean).join(' ')}>
-      <div className={styles.resultsFound}>{items.length} Results found</div>
+    <section className={[styles.resultsList].filter(Boolean).join(' ')}>
+      <div className={styles.resultsFound}>
+        {items.length} {typeof resultsLabel !== 'undefined' ? resultsLabel : 'Results found'}
+      </div>
       {items.slice(0, visible).map((item, idx) => {
         const key = (item as any).id ?? idx;
         const headerNode = renderHeader
@@ -92,11 +96,11 @@ export function CardPagination<T>({
         const imageNode = renderImage
           ? renderImage(item)
           : (() => {
-              const urlFromField = fieldMap?.image ? (item as any)[fieldMap.image] : undefined;
-              const url = urlFromField ?? getImageFromItem(item as any);
-              if (url) return <img src={url} alt={String(headerNode ?? 'image')} className={styles.image} />;
-              return null;
-            })();
+            const urlFromField = fieldMap?.image ? (item as any)[fieldMap.image] : undefined;
+            const url = urlFromField ?? getImageFromItem(item as any);
+            if (url) return <img src={url} alt={String(headerNode ?? 'image')} className={styles.image} />;
+            return null;
+          })();
 
         // If the header already renders an <img>, don't show the left image again.
         const shouldShowLeftImage = !!imageNode && !headerContainsImage(headerNode);
@@ -104,34 +108,34 @@ export function CardPagination<T>({
         const detailsNode = renderDetails
           ? renderDetails(item)
           : (fieldMap?.details ? (
-              <div className={styles.detailsList}>
-                {fieldMap.details.map((k, i) => (
-                  <div className={styles.detailRow} key={i}>
-                    <div className={styles.detailLabel}>{formatLabel(k)}</div>
-                    <div className={styles.detailValue}>{String((item as any)[k] ?? '\u2014')}</div>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className={styles.detailsList}>
-                {normalizeDetails(item as any).map((d, i) => (
-                  <div className={styles.detailRow} key={i}>
-                    {d.label ? <div className={styles.detailLabel}>{d.label}</div> : null}
-                    <div className={styles.detailValue}>{d.value as any}</div>
-                  </div>
-                ))}
-              </div>
-            ));
+            <div className={styles.detailsList}>
+              {fieldMap.details.map((k, i) => (
+                <div className={styles.detailRow} key={i}>
+                  <div className={styles.detailLabel}>{formatLabel(k)}</div>
+                  <div className={styles.detailValue}>{String((item as any)[k] ?? '\u2014')}</div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className={styles.detailsList}>
+              {normalizeDetails(item as any).map((d, i) => (
+                <div className={styles.detailRow} key={i}>
+                  {d.label ? <div className={styles.detailLabel}>{d.label}</div> : null}
+                  <div className={styles.detailValue}>{d.value as any}</div>
+                </div>
+              ))}
+            </div>
+          ));
 
 
-function formatLabel(key: string) {
-  // convert camelCase, snake_case, kebab-case to Title Case
-  const s = key
-    .replace(/([a-z0-9])([A-Z])/g, '$1 $2')
-    .replace(/[_-]+/g, ' ')
-    .trim();
-  return s.replace(/(^|\s)\S/g, (t) => t.toUpperCase());
-}
+        function formatLabel(key: string) {
+          // convert camelCase, snake_case, kebab-case to Title Case
+          const s = key
+            .replace(/([a-z0-9])([A-Z])/g, '$1 $2')
+            .replace(/[_-]+/g, ' ')
+            .trim();
+          return s.replace(/(^|\s)\S/g, (t) => t.toUpperCase());
+        }
         return (
           <article
             key={key}
@@ -142,11 +146,11 @@ function formatLabel(key: string) {
             onKeyDown={
               onCardClick
                 ? (e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      e.preventDefault();
-                      onCardClick(item);
-                    }
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    onCardClick(item);
                   }
+                }
                 : undefined
             }
           >

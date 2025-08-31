@@ -1,0 +1,144 @@
+.queryForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 24px;
+}
+
+.queryTextarea {
+  width: 100%;
+  min-height: 80px;
+  border: 2px solid #3f51b5;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 1.2rem;
+  color: #333;
+  background: #f9f9fb;
+  margin-bottom: 12px;
+  resize: vertical;
+}
+/* Custom placeholder style for theme alignment */
+.queryTextarea::placeholder {
+  color: #888;
+  font-size: 1.1rem;
+  font-family: inherit;
+  opacity: 1;
+}
+
+.submitButton {
+  background: #3f51b5;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 32px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  transition: background 0.2s;
+}
+
+.submitButton:hover {
+  background: #2c387e;
+}
+.cardPaginationWrapper {
+  padding-top: 18px;
+  min-height: 250px;
+}
+/* Title styles moved from inline */
+.title {
+  display: flex;
+  align-items: center;
+}
+
+.titleText {
+  flex: 0 0 80%;
+  font-weight: bold;
+  font-size: 1.2em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.titleHeart {
+  flex: 0 0 20%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+/* Heart icon styles */
+.heartSelected {
+  cursor: pointer;
+  font-size: 1.5em;
+  color: red;
+}
+
+.heartUnselected {
+  cursor: pointer;
+  font-size: 1.5em;
+  color: gray;
+}
+.container {
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  padding: 8px;
+  margin: 8px 0;
+  min-height: 100vh;
+}
+.title {
+  color: #2d3a8c;
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+.address {
+  color: #b8860b;
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+}
+.image {
+  width: 100%;
+  max-width: 480px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  display: block;
+  max-height: 200px;
+}
+.description {
+  font-size: 0.8rem;
+  margin-bottom: 8px;
+}
+.highlightsSection {
+  margin-bottom: 8px;
+}
+.highlight {
+  display: flex;
+  align-items: center;
+  font-size: 0.7rem;
+  margin-bottom: 8px;
+}
+.icon {
+  margin-right: 8px;
+  font-size: 1.2rem;
+}
+.statsSection {
+  display: flex;
+  gap: 24px;
+}
+.statBox {
+  background: #f3eaff;
+  border-radius: 8px;
+  padding: 16px;
+  flex: 1;
+  text-align: center;
+}
+.statLabel {
+  color: #121212;
+  font-size: 0.6rem;
+  margin-bottom: 4px;
+}
+.statValue {
+  color: #6c2eb6;
+  font-size: 0.6rem;
+  font-weight: bold;
+}
