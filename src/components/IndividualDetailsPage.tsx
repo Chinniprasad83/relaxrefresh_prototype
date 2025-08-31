@@ -27,7 +27,7 @@ const IndividualDetailsPage: React.FC<IndividualDetailsPageProps> = ({
       <div className={styles.title}>{title}</div>
       <div className={styles.address}>{address}</div>
       {/* Carousel for images */}
-      <Carousel showThumbs={false} showStatus={false} infiniteLoop={true} autoPlay={true} interval={2000}>
+         <Carousel showThumbs={false} showStatus={false} autoPlay={true} infiniteLoop={true} interval={2000}>
         {(Array.isArray(imageSrc) ? imageSrc : [imageSrc]).map((src, idx) => (
           <div key={idx}>
             <img src={src} alt={title} className={styles.image} />
