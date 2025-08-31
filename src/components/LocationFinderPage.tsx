@@ -59,40 +59,7 @@ export default function LocationFinderPage(): JSX.Element {
 
       <div className={styles.content}>
         <section className={styles.controls} aria-label="Search controls">
-          {/*<div className={styles.row}>
-            <span>Stall Location search</span>
-          </div>
-          <div className={styles.row}>
-            <span>Choose preferred location</span>
-            <label className={styles.radioLabel}>
-              <input type="radio" name="locationMode" defaultChecked aria-checked="true" />
-              <span>Current Location</span>
-            </label>
-          </div>
-
-          <div className={`${styles.row} ${styles.compactRow}`}>
-            <TextSearch
-              className={styles.searchInput}
-              placeholder="Enter city or area"
-              aria-label="Search area"
-              defaultValue={areaQuery}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter') {
-                  const val = (e.target as HTMLInputElement).value
-                  if (val && val.trim().length > 0) setAreaQuery(val.trim())
-                }
-              }}
-            />
-
-            <label className={styles.selectLabel}>
-              <span className="visually-hidden">Provider</span>
-              <select className={styles.select} aria-label="Select provider">
-                <option>Indian Oil</option>
-                <option>HP</option>
-              </select>
-            </label>
-          </div>
-          */}
+         
           {/* View mode selector: Map (default) or List */}
           <div className={styles.row}>
             <span>Stall Location search</span>
