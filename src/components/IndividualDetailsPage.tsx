@@ -22,9 +22,32 @@ const IndividualDetailsPage: React.FC<IndividualDetailsPageProps> = ({
   vehiclesPerDay,
   revenue,
 }) => {
+  const [selected, setSelected] = React.useState(false);
+  const [selectedRecord, setSelectedRecord] = React.useState<any>(null);
+
+  const handleHeartClick = () => {
+    setSelected(!selected);
+    if (!selected) {
+      setSelectedRecord({ title, address, imageSrc, description, highlights, vehiclesPerDay, revenue });
+    } else {
+      setSelectedRecord(null);
+    }
+  };
+
   return (
     <div className={styles.container}>
-      <div className={styles.title}>{title}</div>
+      <div className={styles.title}>
+        <div className={styles.titleText}>{title}</div>
+        <div className={styles.titleHeart}>
+          <span
+            className={selected ? styles.heartSelected : styles.heartUnselected}
+            onClick={handleHeartClick}
+            aria-label={selected ? 'Unselect favorite' : 'Select favorite'}
+          >
+            {selected ? '❤️' : '🤍'}
+          </span>
+        </div>
+      </div>
       <div className={styles.address}>{address}</div>
       {/* Carousel for images */}
          <Carousel showThumbs={false} showStatus={false} autoPlay={true} infiniteLoop={true} interval={2000}>
