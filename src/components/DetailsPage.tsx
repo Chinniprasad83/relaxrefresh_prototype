@@ -25,15 +25,15 @@ export default function DetailsPage(): JSX.Element {
         <button className={styles.backButton} onClick={() => navigate(-1)}>← Back</button>
         {/* Render IndividualDetailsPage with item props */}
         <div style={{ height: '500px' }}>
-          <IndividualDetailsPage
-            title={item.title || 'HP, Thindivanam'}
-            address={item.address || 'GST road ,NH45 Naikar Travan, THINDIVANAM'}
-            imageSrc={item.imageSrc || '/details.png'}
-            description={item.description || 'On key national highways connecting Chennai with southern and western Tamil Nadu, as well as Bengaluru,'}
-            highlights={item.highlights || ['Highlight 1', 'Highlight 2', 'Highlight 3']}
-            vehiclesPerDay={item.vehiclesPerDay || 42}
-            revenue={item.revenue || 3779.58}
-          />
+            <IndividualDetailsPage
+              title={item.title || 'HP, Thindivanam'}
+              address={item.address || 'GST road ,NH45 Naikar Travan, THINDIVANAM'}
+              imageSrc={["/details.png", "/details2.png"]}
+              description={item.description || 'On key national highways connecting Chennai with southern and western Tamil Nadu, as well as Bengaluru,'}
+              highlights={item.highlights || ['Highlight 1', 'Highlight 2', 'Highlight 3']}
+              vehiclesPerDay={item.vehiclesPerDay || 42}
+              revenue={item.revenue || 3779.58}
+            />
         </div>
       </div>
       <BottomNav />
