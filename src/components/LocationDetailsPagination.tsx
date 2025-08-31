@@ -78,6 +78,7 @@ export default function LocationDetialsPagination({ items, initialVisible = 4 }:
         header: 'title',
         details: ['distance', 'road', 'space', 'city'],
       }}
+              resultsLabel="Locations found"
     />
   )
 }

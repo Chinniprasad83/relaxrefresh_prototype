@@ -42,6 +42,7 @@ export function IndividualDetailsCardPagination() {
           header: 'title',
           details: ['distance', 'location', 'road', 'city'],
         }}
+        resultsLabel="attractions found"
       />
     </div>
   )
