@@ -1,7 +1,15 @@
 .page {
-  background: #f7f8fa;
-  min-height: 100vh;
-  padding-bottom: 64px;
+	width: 100%;
+	max-width: 375px;
+	margin: 0 auto;
+	background: var(--color-bg);
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-4);
+	/* create a stacking context where header and bottom nav are outside the scrollable content */
+	align-self: stretch; /* fill the root container (override root centering) */
+	padding: 0; /* we'll handle internal padding on the scrollable content */
 }
 
 .content {
@@ -13,6 +21,7 @@
 	padding-bottom: calc(var(--space-2) + 56px); /* ensure content isn't hidden under bottom nav */
 	display: flex;
 	flex-direction: column;
+	gap: var(--space-2);
 }
 
 .backButton {

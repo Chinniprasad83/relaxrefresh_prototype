@@ -24,7 +24,7 @@ export default function DetailsPage(): JSX.Element {
       <div className={styles.content}>
         <button className={styles.backButton} onClick={() => navigate(-1)}>← Back</button>
         {/* Render IndividualDetailsPage with item props */}
-        <div style={{ height: '500px' }}>
+        <div >
             <IndividualDetailsPage
               title={item.title || 'HP, Thindivanam'}
               address={item.address || 'GST road ,NH45 Naikar Travan, THINDIVANAM'}
