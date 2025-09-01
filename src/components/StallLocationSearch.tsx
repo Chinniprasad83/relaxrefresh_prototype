@@ -67,6 +67,8 @@ const StallLocationSearch: React.FC<StallLocationSearchProps> = ({ status, onLoc
                         <label className={styles.toggleWrapper}>
                             <input
                                 type="checkbox"
+                                id="current-location-toggle"
+                                name="current-location-toggle"
                                 checked={useCurrentLocation}
                                 onChange={() => {
                                     const newValue = !useCurrentLocation;
@@ -109,6 +111,8 @@ const StallLocationSearch: React.FC<StallLocationSearchProps> = ({ status, onLoc
                         <label>State</label>
                         <input
                             type="text"
+                            id="state-input"
+                            name="state-input"
                             value={stateInput}
                             ref={stateInputRef}
                             onChange={e => {
@@ -159,6 +163,8 @@ const StallLocationSearch: React.FC<StallLocationSearchProps> = ({ status, onLoc
                         <label>City</label>
                         <input
                             type="text"
+                            id="city-input"
+                            name="city-input"
                             value={cityInput}
                             ref={stateInputRef}
                             onChange={e => {
@@ -206,6 +212,8 @@ const StallLocationSearch: React.FC<StallLocationSearchProps> = ({ status, onLoc
                     <div className={styles.inputCol}>
                         <label className={styles.supplierLabel}>Petroleum Supplier</label>
                         <select
+                            id="supplier-select"
+                            name="supplier-select"
                             value={selectedSupplier}
                             onChange={e => setSelectedSupplier(e.target.value)}
                             className={styles.supplierSelect}

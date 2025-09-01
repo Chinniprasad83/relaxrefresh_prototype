@@ -40,7 +40,7 @@ const LocationFinderSearchPage: React.FC = () => {
 
   return (
     <div className={styles.pageContainer}>
-      <Header title="Location Finder Search"/>
+      <Header title="Stall Finder"/>
       <main className={styles.main}>
         <section className={styles.controls} aria-label="Search controls">
           <StallLocationSearch
