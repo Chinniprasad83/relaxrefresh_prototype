@@ -8,6 +8,7 @@ import BottomNav from './BottomNav'
 import Header from './Header'
 import ModeSelector from './ModeSelector'
 import { useNavigate } from 'react-router-dom';
+
 // image served from public/ as /avatar.svg
 
 export default function LocationFinderPage(): JSX.Element {
