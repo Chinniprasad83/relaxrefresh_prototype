@@ -14,10 +14,13 @@ type Props = {
   query?: string
   /** Called when the inline map search bar is used */
   onSearch?: (q: string) => void
+  selectedState?: string
+  selectedCity?: string
+  selectedSupplier?: string
 }
 
 // Simple iframe-only MapWidget that includes a search overlay.
-export default function MapWidget({ lat, lng, zoom = 12, className, query, radius = 50, onSearch }: Props) {
+export default function MapWidget({ lat, lng, zoom = 12, className, query, radius = 50, onSearch, selectedState, selectedCity, selectedSupplier }: Props) {
   const [local, setLocal] = useState(() => {
     try {
       // Prefer explicit prop, then sessionStorage (so back button restores), then empty
@@ -26,6 +29,7 @@ export default function MapWidget({ lat, lng, zoom = 12, className, query, radiu
       return query ?? ''
     }
   })
+
   const [pos, setPos] = useState<{ lat: number; lng: number } | null>(null)
   const [permissionDenied, setPermissionDenied] = useState(false)
 
@@ -41,11 +45,10 @@ export default function MapWidget({ lat, lng, zoom = 12, className, query, radiu
         const lng = p.coords.longitude
         setPos({ lat, lng })
         setPermissionDenied(false)
-        // Try to reverse-geocode the coords to a human-readable area and prefill the search box.
+        // Always run reverse geocode when we have coordinates
         reverseGeocodeAndPrefill(lat, lng)
       },
       (err) => {
-        // show a simple prompt so the user can retry granting permissions
         setPermissionDenied(true)
         console.warn('geolocation error', err)
       },
@@ -72,7 +75,10 @@ export default function MapWidget({ lat, lng, zoom = 12, className, query, radiu
       if (place) parts.push(place)
       if (region) parts.push(region)
       else if (country) parts.push(country)
-      const areaLabel = parts.join(', ')
+      let areaLabel = parts.join(', ')
+      if (selectedSupplier && selectedSupplier.trim()) {
+        areaLabel = areaLabel ? `${areaLabel}, ${selectedSupplier}` : selectedSupplier
+      }
       // Do not overwrite an explicit textual query prop or an already-entered local value.
       const hasExplicitQuery = query && query.trim().length > 0
       const hasLocalValue = local && local.trim().length > 0
@@ -101,19 +107,52 @@ export default function MapWidget({ lat, lng, zoom = 12, className, query, radiu
   // enforce a sensible maximum radius
   const effectiveRadius = Math.min(Math.max(typeof radius === 'number' ? radius : 50, 0), 50)
 
-  // Prefer an explicit `query` prop, then the local textbox value (`local`), then coords.
-  const textualQuery = (query && query.trim().length > 0)
-    ? query.trim()
-    : (local && local.trim().length > 0)
-      ? local.trim()
-      : ''
+  // Prefer selectedState/city/supplier if provided, then explicit `query` prop, then the local textbox value (`local`), then coords.
+  let textualQuery = '';
+  let overlayLabel = '';
+  if (selectedState && selectedCity && selectedSupplier && selectedState.trim() && selectedCity.trim() && selectedSupplier.trim()) {
+    textualQuery = `${selectedCity}, ${selectedState}, ${selectedSupplier}`;
+    overlayLabel = `${selectedCity}, ${selectedState}, ${selectedSupplier}`;
+  } else if (selectedState && selectedCity && selectedState.trim() && selectedCity.trim()) {
+    textualQuery = `${selectedCity}, ${selectedState}`;
+    overlayLabel = `${selectedCity}, ${selectedState}`;
+  } else if (query && query.trim().length > 0) {
+    textualQuery = query.trim();
+    overlayLabel = query.trim();
+  } else if (local && local.trim().length > 0) {
+    textualQuery = local.trim();
+    overlayLabel = local.trim();
+  } else if (effectiveLat != null && effectiveLng != null) {
+  // Always use local (reverse geocoded value) if available, otherwise 'Current Location'.
+  let areaLabel = local && local.trim().length > 0 ? local.trim() : 'Current Location';
+  textualQuery = areaLabel;
+  overlayLabel = areaLabel;
+  }
 
-  const coordsAvailable = (effectiveLat != null && effectiveLng != null)
+  // If using current location, append supplier to the query if present
+  const coordsAvailable = (effectiveLat != null && effectiveLng != null);
+  let locationQuery = '';
+  if (!textualQuery && coordsAvailable) {
+    locationQuery = `${effectiveLat},${effectiveLng}`;
+    if (selectedSupplier) {
+      locationQuery += `, ${selectedSupplier}`;
+    }
+  }
 
   // Include radius in the query when available. Prefer textual query; otherwise use coords.
-  const mapQuery = textualQuery
-    ? `petrol bunk within ${effectiveRadius} km of ${textualQuery}`
-    : (coordsAvailable ? `petrol bunk within ${effectiveRadius} km of ${effectiveLat},${effectiveLng}` : '')
+  let mapQuery = '';
+  if (textualQuery.startsWith('Current Location') && coordsAvailable) {
+    if (selectedSupplier && selectedSupplier.trim()) {
+      // Supplier and current location only: put supplier first for better results
+      mapQuery = `${selectedSupplier} petrol bunk within ${effectiveRadius} km of ${effectiveLat},${effectiveLng}`;
+    } else {
+      mapQuery = `petrol bunk within ${effectiveRadius} km of ${effectiveLat},${effectiveLng}`;
+    }
+  } else if (textualQuery) {
+    mapQuery = `petrol bunk within ${effectiveRadius} km of ${textualQuery}`;
+  } else if (coordsAvailable) {
+    mapQuery = `petrol bunk within ${effectiveRadius} km of ${locationQuery}`;
+  }
 
   // If we have coords, center the map on them. If not, `mapQuery` may be empty.
   const centerParam = (effectiveLat && effectiveLng) ? `&center=${effectiveLat},${effectiveLng}` : ''
@@ -147,26 +186,13 @@ export default function MapWidget({ lat, lng, zoom = 12, className, query, radiu
 
   return (
     <div className={className} style={{ position: 'relative', width: '100%', height: '100%' }}>
-      {/* overlay search inside the map */}
+      {/* overlay showing location text instead of search box */}
       <div className={styles.mapOverlay}>
-        <div className={styles.mapSearch}>
-          <TextSearch
-            placeholder="Search area (press Enter)"
-            aria-label="Search area"
-            value={local}
-            onChange={(ev) => {
-              const v = ev.target.value
-              setLocal(v)
-              try { sessionStorage.setItem('areaQuery', v) } catch (e) { /* ignore */ }
-            }}
-            onKeyDown={(e) => {
-              handleKeyDown(e)
-              // also update local state for immediate feedback
-              const val = (e.target as HTMLInputElement).value
-              try { sessionStorage.setItem('areaQuery', val) } catch (e) { /* ignore */ }
-            }}
-          />
-        </div>
+        {overlayLabel && (
+          <div className={styles.mapSearch}>
+            <span style={{ fontWeight: 'bold', fontSize: '1rem' }}>{overlayLabel}</span>
+          </div>
+        )}
       </div>
 
               {/* If we don't have the user's location yet, show a prompt to enable location services. */}

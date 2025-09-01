@@ -19,7 +19,7 @@ export default function BottomNav({ items }: Props) {
   const loc = useLocation()
 
   const defaultItems: NavItem[] = [
-    { id: 'home', label: 'Home', path: '/app', icon: '/home.png' },
+    { id: 'home', label: 'Home', path: '/locationfindersearch', icon: '/home.png' },
     { id: 'dashboard', label: 'Interest', path: '/interest', icon: '/heart.png' },
     { id: 'status', label: 'Queries', path: '/queries', icon: '/query.png' },
     { id: 'foodcourt', label: 'Food Court', path: '/app', icon: '/foodcourt.png' },

@@ -131,7 +131,7 @@
 .controls {
 	display: flex;
 	flex-direction: column;
-	gap: var(--space-3);
+	gap: var(--space-1);
 }
 
 /* Scrollable content wrapper: fills available space between header and bottom nav */
@@ -145,12 +145,12 @@
 	/* ensure content isn't hidden under bottom nav */
 	display: flex;
 	flex-direction: column;
-	gap: var(--space-2);
+	gap: var(--space-1);
 }
 
 .row {
 	display: flex;
-	gap: var(--space-3);
+	gap: var(--space-1);
 	align-items: stretch;
 	width: 100%;
 }
@@ -529,4 +529,22 @@ body,
 		padding-left: calc((100% - 375px)/2);
 		padding-right: calc((100% - 375px)/2);
 	}
+}
+
+.backButton {
+	background: #e3e6f5;
+	color: #2d3a8c;
+	border: none;
+	border-radius: 6px;
+	padding: 8px 8px;
+	font-size: 1rem;
+	font-weight: 500;
+	cursor: pointer;
+	transition: background 0.2s;
+	text-align: left;
+	width: 50%;
+}
+
+.backButton:hover {
+	background: #d1d8f6;
 }

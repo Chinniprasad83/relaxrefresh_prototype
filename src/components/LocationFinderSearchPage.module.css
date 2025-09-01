@@ -1,0 +1,27 @@
+/* Styles for LocationFinderSearchPage */
+.pageContainer {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	background: #f8fafc;
+	width:100%;
+}
+
+.main {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+}
+
+/* Controls */
+.controls {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	width: 100%;
+	max-width: 375px;
+	margin: 0 auto;
+	padding: 4px 0;
+}
