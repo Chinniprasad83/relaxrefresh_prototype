@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './StallLocationSearch.module.css';
 
@@ -11,17 +11,7 @@ interface StallLocationSearchProps {
 const StallLocationSearch: React.FC<StallLocationSearchProps> = ({ status, onLocationSelect, onCurrentLocationToggle }) => {
     const navigate = useNavigate();
     const [useCurrentLocation, setUseCurrentLocation] = useState(true);
-    // Accept onCurrentLocationToggle from props
-    // Fix: destructure onCurrentLocationToggle from props
-    // function StallLocationSearch({ status, onLocationSelect, onCurrentLocationToggle }: StallLocationSearchProps) { ... }
-    // ...existing code...
-    // Accept onLocationSelect from props
-    // ...existing code...
-    // Fix: destructure onLocationSelect from props
-    // ...existing code...
-    // The correct way:
-    // function StallLocationSearch({ status, onLocationSelect }: StallLocationSearchProps) { ... }
-
+   
     useEffect(() => {
         if (typeof status === 'boolean') {
             setUseCurrentLocation(status);
@@ -43,6 +33,7 @@ const StallLocationSearch: React.FC<StallLocationSearchProps> = ({ status, onLoc
     const petroleumSuppliers = ["IOCL", "HPCL", "BPCL", "Reliance", "Essar"];
 
     const [stateInput, setStateInput] = useState("");
+    const stateInputRef = useRef<HTMLInputElement>(null);
     const [selectedState, setSelectedState] = useState("");
     const [showStateAutocomplete, setShowStateAutocomplete] = useState(false);
     const [cityInput, setCityInput] = useState("");
@@ -60,40 +51,75 @@ const StallLocationSearch: React.FC<StallLocationSearchProps> = ({ status, onLoc
 
     return (
         <div className={styles.stallLocationContainer}>
+            {/* 1. Header 
             <div className={styles.headerRow}>
-                <span className={styles.headerLabel}>Stall location search</span>
-                <label className={styles.toggleWrapper}>
-                    <input
-                        type="checkbox"
-                        checked={useCurrentLocation}
-                        onChange={() => {
-                            const newValue = !useCurrentLocation;
-                            setUseCurrentLocation(newValue);
-                            if (onCurrentLocationToggle) {
-                                onCurrentLocationToggle(newValue);
-                            }
-                        }}
-                        className={styles.toggle}
-                    />
-                    <span className={styles.slider}></span>
-                    <span className={styles.toggleLabel}>Current location</span>
-                </label>
-            </div>
+                <span className={styles.headerLabel}>Stall Location Search</span>
+            </div>*/}
 
-            {/* Section below toggle */}
-            <fieldset className={styles.sectionFieldset}>
-                {/* First row: State and City search */}
-                <div className={styles.inputRow}>
-                    {/* State autocomplete */}
-                    <div className={styles.inputCol}>
+            {/* 2-5. Grouped location selection */}
+            <div className={styles.locationGroup}>
+                {/* 2. Current location toggle row */}
+                <div className={styles.toggleRow}>
+                    <div className={styles.toggleLabelCol}>
+                        <span className={styles.toggleLabel}>Current location</span>
+                    </div>
+                    <div className={styles.toggleSwitchCol}>
+                        <label className={styles.toggleWrapper}>
+                            <input
+                                type="checkbox"
+                                checked={useCurrentLocation}
+                                onChange={() => {
+                                    const newValue = !useCurrentLocation;
+                                    setUseCurrentLocation(newValue);
+                                    if (onCurrentLocationToggle) {
+                                        onCurrentLocationToggle(newValue);
+                                    }
+                                    // If disabling location (enabling current location), clear state/city
+                                    if (newValue) {
+                                        if (stateInput || selectedState) {
+                                            setStateInput("");
+                                            setSelectedState("");
+                                        }
+                                        if (cityInput || selectedCity) {
+                                            setCityInput("");
+                                            setSelectedCity("");
+                                        }
+                                    }
+                                    // If location is disabled and state is empty but city has value, clear city
+                                    if (!newValue && !stateInput && !selectedState && (cityInput || selectedCity)) {
+                                        setCityInput("");
+                                        setSelectedCity("");
+                                    }
+                                }}
+                                className={styles.toggle}
+                            />
+                            <span className={styles.slider}></span>
+                        </label>
+                    </div>
+                </div>
+
+                {/* 3. Centered (or) literal */}
+                <div className={styles.orRow}>
+                    <span className={styles.orLiteral}>(or)</span>
+                </div>
+
+                {/* 4 & 5. State and City grouped */}
+                <div className={styles.stateCityGroup}>
+                    <div className={styles.inputCol + ' ' + styles.stateRow}>
                         <label>State</label>
                         <input
                             type="text"
                             value={stateInput}
+                            ref={stateInputRef}
                             onChange={e => {
-                                setStateInput(e.target.value);
+                                const value = e.target.value;
+                                setStateInput(value);
                                 setSelectedState("");
                                 setShowStateAutocomplete(true);
+                                if (value === "") {
+                                    setCityInput("");
+                                    setSelectedCity("");
+                                }
                             }}
                             onFocus={() => setShowStateAutocomplete(true)}
                             onBlur={() => setTimeout(() => setShowStateAutocomplete(false), 100)}
@@ -102,7 +128,14 @@ const StallLocationSearch: React.FC<StallLocationSearchProps> = ({ status, onLoc
                             disabled={stateCityDisabled}
                         />
                         {stateInput && showStateAutocomplete && (
-                            <div className={styles.autocompleteList}>
+                            <div
+                                className={styles.autocompleteList}
+                                style={{
+                                    width: stateInputRef.current ? `${stateInputRef.current.offsetWidth}px` : undefined,
+                                    left: stateInputRef.current ? `${stateInputRef.current.offsetLeft}px` : undefined,
+                                    top: stateInputRef.current ? `${stateInputRef.current.offsetTop + stateInputRef.current.offsetHeight}px` : undefined,
+                                }}
+                            >
                                 {filteredStates.map(s => (
                                     <div
                                         key={s}
@@ -119,12 +152,15 @@ const StallLocationSearch: React.FC<StallLocationSearchProps> = ({ status, onLoc
                             </div>
                         )}
                     </div>
-                    {/* City autocomplete */}
-                    <div className={styles.inputCol}>
+
+                    <div className={styles.inputCol + ' ' + styles.cityRow}>
+                        {/* City input ref for alignment */}
+                        {/* ...existing code... */}
                         <label>City</label>
                         <input
                             type="text"
                             value={cityInput}
+                            ref={stateInputRef}
                             onChange={e => {
                                 setCityInput(e.target.value);
                                 setSelectedCity("");
@@ -137,7 +173,14 @@ const StallLocationSearch: React.FC<StallLocationSearchProps> = ({ status, onLoc
                             autoComplete="off"
                         />
                         {cityInput && selectedState && showCityAutocomplete && (
-                            <div className={styles.autocompleteList}>
+                            <div
+                                className={styles.autocompleteList}
+                                style={{
+                                    width: stateInputRef.current ? `${stateInputRef.current.offsetWidth}px` : undefined,
+                                    left: stateInputRef.current ? `${stateInputRef.current.offsetLeft}px` : undefined,
+                                    top: stateInputRef.current ? `${stateInputRef.current.offsetTop + stateInputRef.current.offsetHeight}px` : undefined,
+                                }}
+                            >
                                 {filteredCities.map(c => (
                                     <div
                                         key={c}
@@ -155,40 +198,42 @@ const StallLocationSearch: React.FC<StallLocationSearchProps> = ({ status, onLoc
                         )}
                     </div>
                 </div>
+            </div>
 
-                {/* Second row: Supplier dropdown and Go button */}
-                <div className={styles.supplierRow}>
-                    {/* Supplier dropdown */}
-                    <div className={styles.supplierCol}>
-                        <label>Petroleum Supplier</label>
+            {/* 6. Petroleum supplier dropdown */}
+            <div className={styles.supplierGroup}>
+                <div className={styles.supplierBox}>
+                    <div className={styles.inputCol}>
+                        <label className={styles.supplierLabel}>Petroleum Supplier</label>
                         <select
                             value={selectedSupplier}
                             onChange={e => setSelectedSupplier(e.target.value)}
-                            className={styles.inputCol}
-                            disabled={false} // Always enabled
+                            className={styles.supplierSelect}
+                            disabled={false}
                         >
-                            <option value="">Select supplier</option>
+                            <option value="">Select</option>
                             {petroleumSuppliers.map(sup => (
                                 <option key={sup} value={sup}>{sup}</option>
                             ))}
                         </select>
                     </div>
-                    {/* Go button */}
-                    <div className={styles.goButtonCol}>
-                        <button
-                            className={styles.goButton}
-                            onClick={() => {
-                                if (onLocationSelect) {
-                                    onLocationSelect({ state: selectedState, city: selectedCity, supplier: selectedSupplier });
-                                }
-                            }}
-                            disabled={!selectedSupplier} // Only require supplier for GO when current location is enabled
-                        >
-                            Go
-                        </button>
-                    </div>
                 </div>
-            </fieldset>
+            </div>
+
+            {/* 7. Centered Go button */}
+            <div className={styles.goButtonRow}>
+                <button
+                    className={styles.goButton}
+                    onClick={() => {
+                        if (onLocationSelect) {
+                            onLocationSelect({ state: selectedState, city: selectedCity, supplier: selectedSupplier });
+                        }
+                    }}
+                    disabled={!selectedSupplier}
+                >
+                    Search
+                </button>
+            </div>
         </div>
     );
 };
