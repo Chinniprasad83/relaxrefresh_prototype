@@ -22,23 +22,27 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route element={<BottomTabs showTabs={true} />}>
-            <Route path="home" element={<Home />} />
-            <Route path="stalls" element={<Stalls />} />
-            <Route path="interest" element={<Interest />} />
-            <Route path="queries" element={<Queries />} />
-            <Route path="stall-search" element={<StallSearch showBackToStall={false} />} />
-            <Route path="/follow-up/:id" element={<FollowUp />} />
-          </Route>
-          <Route path="/stall-search/from-stalls" element={<StallSearch showBackToStall={true} />} />
-          <Route path="/stall-details/:id" element={<StallDetails />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
+      <div className="desktop-mobile-container">
+        <div className="mobile-viewport">
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route element={<BottomTabs showTabs={true} />}>
+                <Route path="home" element={<Home />} />
+                <Route path="stalls" element={<Stalls />} />
+                <Route path="interest" element={<Interest />} />
+                <Route path="queries" element={<Queries />} />
+                <Route path="stall-search" element={<StallSearch showBackToStall={false} />} />
+                <Route path="/follow-up/:id" element={<FollowUp />} />
+              </Route>
+              <Route path="/stall-search/from-stalls" element={<StallSearch showBackToStall={true} />} />
+              <Route path="/stall-details/:id" element={<StallDetails />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </div>
+      </div>
     </TooltipProvider>
   </QueryClientProvider>
 );
