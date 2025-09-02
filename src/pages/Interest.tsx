@@ -1,10 +1,11 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Heart, MapPin, Phone } from "lucide-react";
+import { Heart, MapPin } from "lucide-react";
 
 export default function Interest() {
+  const navigate = useNavigate();
   const [likedStalls, setLikedStalls] = useState([
     {
       id: 1,
@@ -19,7 +20,7 @@ export default function Interest() {
     {
       id: 2,
       name: "Sample Station 3",
-      distance: "12 km", 
+      distance: "12 km",
       road: "Avenue Road",
       space: "1500 sqft",
       city: "Madurai",
@@ -44,47 +45,60 @@ export default function Interest() {
 
         <div className="space-y-4">
           {likedStalls.map((stall) => (
-            <Card key={stall.id} className="p-4 shadow-elegant border-0">
-              <div className="flex gap-4">
-                <img 
-                  src={stall.image} 
+            <Card key={stall.id} className="p-4 shadow-elegant border-0 bg-white">
+              <div className="flex gap-4 flex-wrap sm:flex-nowrap">
+                {/* Image on the left */}
+                <img
+                  src={stall.image}
                   alt={stall.name}
-                  className="w-20 h-20 object-cover rounded-lg bg-muted"
-                  loading="lazy"
+                  className="w-28 rounded-lg object-cover shrink-0"
+                  style={{ height: 'auto' }}
                 />
-                <div className="flex-1 space-y-2">
-                  <div className="flex items-start justify-between">
-                    <h3 className="font-semibold text-lg">{stall.name}</h3>
-                    <Button
-                      variant="ghost" 
-                      size="sm"
-                      onClick={() => toggleLike(stall.id)}
-                      className="p-1 h-auto"
-                    >
-                      <Heart className="w-5 h-5 fill-red-500 text-red-500" />
-                    </Button>
-                  </div>
-                  
-                  <div className="space-y-1 text-sm text-muted-foreground">
-                    <div className="flex items-center gap-2">
-                      <MapPin className="w-4 h-4" />
-                      <span>{stall.distance} • {stall.road}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Space: {stall.space}</span>
-                      <span>City: {stall.city}</span>
-                    </div>
-                  </div>
 
-                  <div className="flex gap-2 pt-2">
-                    <Button size="sm" className="flex-1">
-                      Contact Owner
-                    </Button>
-                    <Button variant="outline" size="sm">
-                      View Details
-                    </Button>
+                {/* Details and Buttons on the right */}
+                <div className="flex-1 flex flex-col justify-between">
+                  {/* Details */}
+                  <div className="space-y-2">
+                    <h3 className="text-blue-600 font-semibold text-lg">{stall.name}</h3>
+
+                    <div className="flex items-center">
+                      <span className="text-gray-600 text-sm w-2/3">Distance</span>
+                      <span className="font-semibold text-black text-sm w-2/3 truncate">{stall.distance}</span>
+                    </div>
+
+                    <div className="flex items-center">
+                      <span className="text-gray-600 text-sm w-2/3">Road</span>
+                      <span className="font-semibold text-black text-sm w-2/3 truncate">{stall.road}</span>
+                    </div>
+
+                    <div className="flex items-center">
+                      <span className="text-gray-600 text-sm w-2/3">Space</span>
+                      <span className="font-semibold text-black text-sm w-2/3 truncate">{stall.space}</span>
+                    </div>
+
+                    <div className="flex items-center">
+                      <span className="text-gray-600 text-sm w-2/3">City</span>
+                      <span className="font-semibold text-black text-sm w-2/3 truncate">{stall.city}</span>
+                    </div>
                   </div>
                 </div>
+              </div>
+              {/* Buttons row - fully below the details */}
+              <div className="flex justify-between gap-2 mt-4">
+                <Button
+                  size="sm"
+                  className="flex-1"
+                  onClick={() => navigate(`/follow-up/${stall.id}`, { state: { stall } })}
+                >
+                  Follow Up
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="flex-1"
+                >
+                  View Details
+                </Button>
               </div>
             </Card>
           ))}

@@ -86,9 +86,9 @@ export function CardPagination<T>({
 
   return (
     <section className="space-y-4">
-      <div className="text-center text-sm text-muted-foreground">
+      {/* <div className="text-center text-sm text-muted-foreground">
         {items.length} {typeof resultsLabel !== 'undefined' ? resultsLabel : 'Results found'}
-      </div>
+      </div> */}
       
       <div className="space-y-4">
         {items.slice(0, visible).map((item, idx) => {

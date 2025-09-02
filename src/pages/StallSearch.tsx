@@ -23,7 +23,7 @@ export default function StallSearch({ showBackToStall = false }: Props) {
   const [selectedCity, setSelectedCity] = useState("");
   const [showCityAutocomplete, setShowCityAutocomplete] = useState(false);
   const [selectedSupplier, setSelectedSupplier] = useState("");
-  
+
   const stateInputRef = useRef<HTMLInputElement>(null);
 
   const indianStates = ["Tamil Nadu", "Karnataka", "Maharashtra"];
@@ -80,7 +80,7 @@ export default function StallSearch({ showBackToStall = false }: Props) {
           )}
         </div>
 
-        <Card className="p-6">
+        <Card className="p-6 bg-violet-300/5">
           <div className="space-y-6">
             {/* Current Location Toggle */}
             <div className="flex items-center justify-between">
@@ -126,9 +126,10 @@ export default function StallSearch({ showBackToStall = false }: Props) {
                   onBlur={() => setTimeout(() => setShowStateAutocomplete(false), 100)}
                   placeholder="Search state..."
                   disabled={stateCityDisabled}
+                  className="border-2 border-violet-300 focus:border-violet-400 focus:ring-1 focus:ring-violet-300"
                 />
                 {stateInput && showStateAutocomplete && (
-                  <div className="absolute z-10 w-full bg-background border rounded-md shadow-lg max-h-40 overflow-y-auto">
+                  <div className="absolute z-10 w-full bg-background border border-violet-300 rounded-md shadow-lg max-h-40 overflow-y-auto">
                     {filteredStates.map((state) => (
                       <div
                         key={state}
@@ -160,9 +161,10 @@ export default function StallSearch({ showBackToStall = false }: Props) {
                   onBlur={() => setTimeout(() => setShowCityAutocomplete(false), 100)}
                   placeholder={selectedState ? "Search city..." : "Select state first"}
                   disabled={stateCityDisabled || !selectedState}
+                  className="border-2 border-violet-300 focus:border-violet-400 focus:ring-1 focus:ring-violet-300"
                 />
                 {cityInput && selectedState && showCityAutocomplete && (
-                  <div className="absolute z-10 w-full bg-background border rounded-md shadow-lg max-h-40 overflow-y-auto">
+                  <div className="absolute z-10 w-full bg-background border border-violet-300 rounded-md shadow-lg max-h-40 overflow-y-auto">
                     {filteredCities.map((city) => (
                       <div
                         key={city}
@@ -185,10 +187,10 @@ export default function StallSearch({ showBackToStall = false }: Props) {
             <div className="space-y-2">
               <Label>Petroleum Supplier</Label>
               <Select value={selectedSupplier} onValueChange={setSelectedSupplier}>
-                <SelectTrigger>
+                <SelectTrigger className="border-2 border-violet-500 focus:border-violet-400 focus:ring-1 focus:ring-violet-300">
                   <SelectValue placeholder="Select supplier" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="border-2 border-violet-500">
                   {petroleumSuppliers.map((supplier) => (
                     <SelectItem key={supplier} value={supplier}>
                       {supplier}

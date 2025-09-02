@@ -26,7 +26,12 @@ export default function Stalls() {
       address: "GST road ,NH45 Naikar Travan, THINDIVANAM",
       images: ["/HP_Thindivanam1.jpg", "/HP_Thindivanam2.jpg", "/HP_Thindivanam3.webp"],
       description: "On key national highways connecting Chennai with southern and western Tamil Nadu, as well as Bengaluru.",
-      highlights: ["Highlight 1", "Highlight 2", "Highlight 3"],
+      highlights: [
+        "Tourist Magnet: Positioned on a major route to a tourist destination, the petrol bunks court becomes an essential stop for travelers to refuel.",
+        "Strategic Location: The proximity to popular attractions, like a famous temple, lake, or historical site, provides a ready-made and consistent customer base of domestic and international tourists.",
+        "Convenience & Demand: This combination of hotels, resorts, and hospitals creates a unique and powerful demand.",
+      ],
+
       vehiclesPerDay: 42,
       revenue: "$3,779.58",
       lat: 11.9369, // Villupuram coordinates
@@ -86,31 +91,25 @@ export default function Stalls() {
   ];
 
   const renderStallCard = (item: typeof stallLocations[0]) => (
-    <div className="space-y-2">
-      <div className="grid grid-cols-2 gap-2 text-xs">
-        <div className="space-y-1">
-          <div>
-            <span className="text-muted-foreground">Distance:</span>{" "}
-            <span className="font-medium">{item.distance}</span>
-          </div>
-          <div>
-            <span className="text-muted-foreground">Road:</span>{" "}
-            <span className="font-medium">{item.road}</span>
-          </div>
-        </div>
-        <div className="space-y-1">
-          <div>
-            <span className="text-muted-foreground">Space:</span>{" "}
-            <span className="font-medium">{item.space}</span>
-          </div>
-          <div>
-            <span className="text-muted-foreground">City:</span>{" "}
-            <span className="font-medium">{item.city}</span>
-          </div>
-        </div>
+    <div className="flex gap-4">
+      {/* Info Right */}
+      <div className="flex-1 grid grid-cols-2 gap-x-4 gap-y-1 text-sm">
+        <div className="text-gray-600 text-sm">Distance</div>
+        <div className="font-semibold text-black text-sm  truncate">{item.distance}</div>
+
+        <div className="text-gray-600 text-sm">Road</div>
+        <div className="font-semibold text-black text-sm  truncate">{item.road}</div>
+
+        <div className="text-gray-600 text-sm">Space</div>
+        <div className="font-semibold text-black text-sm  truncate">{item.space}</div>
+
+        <div className="text-gray-600 text-sm">City</div>
+        <div className="font-semibold text-black text-sm w-2/3 truncate">{item.city}</div>
       </div>
     </div>
   );
+
+
 
   return (
     <div className="min-h-screen bg-background p-6">
@@ -135,7 +134,7 @@ export default function Stalls() {
               <img
                 src={item.image}
                 alt={item.name}
-                className="w-20 h-20 object-cover rounded-lg bg-muted"
+                className="w-24 aspect-square object-cover rounded-lg bg-muted"
               />
             )}
             renderHeader={(item) => item.name}

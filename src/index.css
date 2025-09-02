@@ -17,7 +17,7 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 210 15% 15%;
 
-    --primary: 197 82% 45%;
+    --primary: 265 74% 21%;
     --primary-foreground: 0 0% 100%;
     --primary-glow: 197 82% 65%;
 
@@ -36,7 +36,7 @@ All colors MUST be HSL.
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 197 82% 45%;
+    --ring: 265 74% 21%;
 
     /* Custom gradients */
     --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
@@ -68,6 +68,26 @@ All colors MUST be HSL.
     --sidebar-border: 220 13% 91%;
 
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* === Finastra-Inspired Palette === */
+    --fin-background-dark: 263 64% 14%;   /* #1B0B3B */
+    --fin-background-violet: 265 74% 21%; /* #2D0E5C */
+    --fin-white: 0 0% 100%;               /* #FFFFFF */
+    --fin-pink: 330 75% 58%;              /* #E6399B */
+    --fin-pink-dark: 323 71% 46%;         /* #C82287 */
+
+    /* Custom gradients */
+    --gradient-finastra: linear-gradient(
+      135deg,
+      hsl(var(--fin-background-dark)),
+      hsl(var(--fin-background-violet))
+    );
+
+    --gradient-finastra-pink: linear-gradient(
+      135deg,
+      hsl(var(--fin-pink)),
+      hsl(var(--fin-pink-dark))
+    );
   }
 
   .dark {

@@ -13,6 +13,7 @@ import Profile from "./pages/Profile";
 import StallSearch from "./pages/StallSearch";
 import StallDetails from "./pages/StallDetails";
 import BottomTabs from "./components/ui/bottom-tabs";
+import FollowUp from "./pages/FollowUp";
 
 const queryClient = new QueryClient();
 
@@ -30,6 +31,7 @@ const App = () => (
             <Route path="interest" element={<Interest />} />
             <Route path="queries" element={<Queries />} />
             <Route path="stall-search" element={<StallSearch showBackToStall={false} />} />
+            <Route path="/follow-up/:id" element={<FollowUp />} />
           </Route>
           <Route path="/stall-search/from-stalls" element={<StallSearch showBackToStall={true} />} />
           <Route path="/stall-details/:id" element={<StallDetails />} />
