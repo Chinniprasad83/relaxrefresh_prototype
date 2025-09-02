@@ -181,6 +181,32 @@ All colors MUST be HSL.
   z-index: 9999;
 }
 
+/* Ensure content appears below Dynamic Island */
+.mobile-viewport > * {
+  padding-top: 77px; /* 20px (top) + 37px (height) + 20px (spacing) */
+}
+
+/* Override for login page which has its own background */
+.mobile-viewport > * > div[class*="min-h-screen"] {
+  padding-top: 77px;
+}
+
+/* Override for pages that already have a Header component - remove extra padding */
+.mobile-viewport > * > div[class*="min-h-screen"]:has(header),
+.mobile-viewport > * > div[class*="min-h-screen"] header {
+  padding-top: 0 !important;
+}
+
+/* Ensure the outer container for pages with header gets the Dynamic Island spacing */
+.mobile-viewport > *:has(div[class*="min-h-screen"] header) {
+  padding-top: 77px;
+}
+
+/* Ensure headers in mobile viewport have proper spacing from Dynamic Island */
+.mobile-viewport header {
+  margin-top: 0 !important;
+}
+
 /* Responsive behavior for actual mobile devices */
 @media (max-width: 768px) {
   .desktop-mobile-container {
@@ -242,4 +268,27 @@ All colors MUST be HSL.
 .mobile-viewport .lg\:flex-none.lg\:w-1\/2 {
   width: 100% !important;
   flex: 1 !important;
+}
+
+/* Mobile header optimizations */
+.mobile-viewport header {
+  padding-left: 16px !important;
+  padding-right: 16px !important;
+  padding-top: 12px !important;
+  padding-bottom: 12px !important;
+  margin-top: 0 !important;
+  position: relative;
+  z-index: 10;
+}
+
+.mobile-viewport header h1 {
+  font-size: 1.125rem !important; /* 18px */
+  line-height: 1.75rem !important;
+  max-width: calc(100vw - 120px) !important;
+}
+
+/* Ensure avatar is properly sized in mobile */
+.mobile-viewport header button {
+  width: 40px !important;
+  height: 40px !important;
 }

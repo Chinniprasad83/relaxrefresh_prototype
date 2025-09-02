@@ -74,9 +74,9 @@ export default function StallDetails() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background" style={{ paddingTop: '0' }}>
       <Header />
-      <div className="space-y-6 p-4">
+      <div className="space-y-6 p-4">{/* Debug: Stall ID from URL: {id} */}
         {/* Back Arrow */}
         <div className="flex items-center">
           <Button

@@ -5,18 +5,18 @@ export default function Header() {
 
   return (
     <header
-      className="border-b px-6 py-4 shadow-elegant"
+      className="border-b px-4 py-3 shadow-elegant"
       style={{ background: "var(--gradient-finastra)" }}
     >
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-white">
+        <h1 className="text-lg font-bold text-white truncate mr-2">
           RelaxRefresh
         </h1>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 flex-shrink-0">
           {/* Avatar + click handler */}
           <button
             onClick={() => navigate("/profile")}
-            className="w-8 h-8 rounded-full overflow-hidden cursor-pointer"
+            className="w-10 h-10 rounded-full overflow-hidden cursor-pointer border-2 border-white/20"
             style={{ background: "var(--gradient-finastra-pink)" }}
           >
             <img

@@ -10,21 +10,41 @@ export default function Interest() {
     {
       id: 1,
       name: "HP, Thindivanam",
+      address: "GST road ,NH45 Naikar Travan, THINDIVANAM",
       distance: "23 km",
-      road: "GST road, NH45",
+      road: "GST Road, NH45",
       space: "3000 sqft",
       city: "Villupuram",
       image: "/HP_Thindivanam1.jpg",
+      images: ["/HP_Thindivanam1.jpg", "/HP_Thindivanam2.jpg", "/HP_Thindivanam3.webp"],
+      description: "On key national highways connecting Chennai with southern and western Tamil Nadu, as well as Bengaluru,",
+      highlights: [
+        "Tourist Magnet: Positioned on a major route to a tourist destination, the petrol bunks court becomes an essential stop for travelers to refuel.",
+        "Strategic Location: The proximity to popular attractions, like a famous temple, lake, or historical site, provides a ready-made and consistent customer base of domestic and international tourists.",
+        "Convenience & Demand: This combination of hotels, resorts, and hospitals creates a unique and powerful demand.",
+      ],
+      vehiclesPerDay: 42,
+      revenue: "$3,779.58",
       liked: true
     },
     {
       id: 2,
       name: "Sample Station 3",
+      address: "Avenue Road, Central Area, MADURAI",
       distance: "12 km",
       road: "Avenue Road",
       space: "1500 sqft",
       city: "Madurai",
       image: "/smaple_station_3.jpg",
+      images: ["/smaple_station_3.jpg", "/smaple_station_4.jpg"],
+      description: "Located in the heart of Madurai city, this station serves both local and tourist traffic.",
+      highlights: [
+        "City Center Location: Perfect for urban commuters and city travelers.",
+        "High Traffic Area: Consistent customer flow throughout the day.",
+        "Tourist Access: Easy access for tourists visiting Madurai attractions.",
+      ],
+      vehiclesPerDay: 35,
+      revenue: "$2,890.45",
       liked: true
     }
   ]);
@@ -96,6 +116,7 @@ export default function Interest() {
                   variant="outline"
                   size="sm"
                   className="flex-1"
+                  onClick={() => navigate(`/stall-details/${stall.id}`, { state: { stall } })}
                 >
                   View Details
                 </Button>

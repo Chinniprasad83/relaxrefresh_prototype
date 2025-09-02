@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -12,6 +13,7 @@ interface QueryModalProps {
 
 export function QueryModal({ open, onClose, stallName }: QueryModalProps) {
   const [query, setQuery] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = () => {
     if (query.trim()) {
@@ -19,6 +21,8 @@ export function QueryModal({ open, onClose, stallName }: QueryModalProps) {
       console.log("Query submitted:", query, "for stall:", stallName);
       setQuery("");
       onClose();
+      // Navigate to interest page after posting query
+      navigate("/interest");
       // You could show a toast notification here
     }
   };
