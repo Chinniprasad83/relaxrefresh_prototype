@@ -12,7 +12,7 @@ export const mockStallData = [
     image: "/HP_2.jpeg",
     location: "Naikar Travan, THINDIVANAM",
     vehiclesPerDay: 42958,
-    revenue: "₹3,779.58",
+    revenue: "4,33,779.58",
     description:
       "On key national highways connecting Chennai with southern and western Tamil Nadu, as well as Bengaluru.",
     highlights: [

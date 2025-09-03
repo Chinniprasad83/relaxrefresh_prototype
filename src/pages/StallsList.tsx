@@ -87,7 +87,7 @@ const StallsList = () => {
               transition={{ duration: 0.5 }}
             >
               <MapWidget
-                radius={50}
+                radius={30}
                 zoom={14}
                 query={areaQuery}
                 selectedState={selectedState}
