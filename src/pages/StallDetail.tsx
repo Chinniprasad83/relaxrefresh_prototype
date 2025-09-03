@@ -68,8 +68,11 @@ const StallDetail = () => {
   }
 
   const handleLike = () => {
+    const wasLiked = isLiked(stallData.id); // Check if stall was liked before toggling
     toggleHeart(stallData);
-    setShowQueryModal(true); // Always show modal when heart is clicked
+    if (!wasLiked) {
+      setShowQueryModal(true); // Show dialog only when liking (not already liked)
+    }
   };
 
   const handleAttractionClick = (attractionId) => {
