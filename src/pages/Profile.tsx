@@ -34,10 +34,10 @@ const Profile = () => {
   };
 
   const handleSignOut = () => {
-    toast({
-      title: "Signed Out",
-      description: "You have been signed out successfully",
-    });
+    // toast({
+    //   title: "Signed Out",
+    //   description: "You have been signed out successfully",
+    // });
     navigate("/login");
   };
 
@@ -48,10 +48,10 @@ const Profile = () => {
       reader.onload = (e) => {
         const result = e.target?.result as string;
         setAvatar(result);
-        toast({
-          title: "Avatar Updated",
-          description: "Your profile picture has been updated successfully",
-        });
+        // toast({
+        //   title: "Avatar Updated",
+        //   description: "Your profile picture has been updated successfully",
+        // });
       };
       reader.readAsDataURL(file);
       setShowAvatarUpload(false);
@@ -61,10 +61,10 @@ const Profile = () => {
   const handleRemoveAvatar = () => {
     setAvatar("/api/placeholder/100/100");
     setShowAvatarUpload(false);
-    toast({
-      title: "Avatar Removed",
-      description: "Your profile picture has been reset to default",
-    });
+    // toast({
+    //   title: "Avatar Removed",
+    //   description: "Your profile picture has been reset to default",
+    // });
   };
 
   const settingsItems = [
@@ -99,14 +99,14 @@ const Profile = () => {
           label: "Edit Profile",
           icon: Edit,
           type: "action",
-          action: () => toast({ title: "Edit Profile", description: "Feature coming soon!" }),
+          // action: () => toast({ title: "Edit Profile", description: "Feature coming soon!" }),
         },
         {
           id: "change-password",
           label: "Change Password",
           icon: Lock,
           type: "action",
-          action: () => toast({ title: "Change Password", description: "Feature coming soon!" }),
+          // action: () => toast({ title: "Change Password", description: "Feature coming soon!" }),
         },
         {
           id: "sign-out",
@@ -125,7 +125,7 @@ const Profile = () => {
     style={{paddingBottom: '170px'}} >
       {/* Header */}
       <motion.div
-        className="sticky top-0 z-40 bg-gradient-primary text-white p-6 shadow-elevated"
+        className="sticky top-0 z-40 bg-gradient-primary text-white px-6 shadow-elevated"
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6 }}

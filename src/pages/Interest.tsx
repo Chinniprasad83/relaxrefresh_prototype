@@ -21,10 +21,10 @@ const Interest = () => {
 
   const handleHeartClick = (stall: any) => {
     toggleHeart(stall);
-    toast({
-      title: "Removed from interests",
-      description: `${stall.name} removed from your interests`,
-    });
+    // toast({
+    //   title: "Removed from interests",
+    //   description: `${stall.name} removed from your interests`,
+    // });
   };
 
   return (

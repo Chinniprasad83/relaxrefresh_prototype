@@ -331,6 +331,7 @@
   width: 100%;
   overflow-y: auto; /* Allow content to scroll */
   -webkit-overflow-scrolling: touch;
+  padding-bottom: 64px;
 }
 
 nav {
@@ -344,6 +345,7 @@ nav {
   box-shadow: var(--shadow-floating);
   z-index: 50;
   padding-bottom: env(safe-area-inset-bottom);
+  height: 64px;
 }
 
 /* Responsive adjustments for mobile devices */

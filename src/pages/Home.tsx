@@ -35,20 +35,20 @@ const Home = () => {
 
   const handleSearch = () => {
     if (!useCurrentLocation && (!selectedState || !selectedCity)) {
-      toast({
-        title: "Missing Information",
-        description: "Please select state and city or enable current location",
-        variant: "destructive",
-      });
+      // toast({
+      //   title: "Missing Information",
+      //   description: "Please select state and city or enable current location",
+      //   variant: "destructive",
+      // });
       return;
     }
 
     if (!selectedSupplier) {
-      toast({
-        title: "Missing Supplier",
-        description: "Please select a petroleum supplier",
-        variant: "destructive",
-      });
+      // toast({
+      //   title: "Missing Supplier",
+      //   description: "Please select a petroleum supplier",
+      //   variant: "destructive",
+      // });
       return;
     }
 
@@ -62,9 +62,9 @@ const Home = () => {
   };
 
   return (
-    <div className="content-area bg-background-secondary">
+    <div className="content-area bg-background-secondary min-h-screen">
       <motion.div
-        className="p-4 space-y-4"
+        className="p-4 space-y-4 max-w-md mx-auto"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
@@ -166,30 +166,6 @@ const Home = () => {
             <Search className="w-5 h-5 mr-2" />
             Search Locations
           </Button>
-        </motion.div>
-
-        {/* Quick Actions */}
-        <motion.div
-          className="grid grid-cols-2 gap-3"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
-        >
-          <div className="bg-card rounded-2xl p-4 text-center shadow-card">
-            <div className="w-12 h-12 bg-success/10 rounded-xl mx-auto mb-3 flex items-center justify-center">
-              <MapPin className="w-6 h-6 text-success" />
-            </div>
-            <h3 className="font-semibold text-foreground mb-1 text-sm">Active Locations</h3>
-            <p className="text-xl font-bold text-success">24</p>
-          </div>
-          
-          <div className="bg-card rounded-2xl p-4 text-center shadow-card">
-            <div className="w-12 h-12 bg-warning/10 rounded-xl mx-auto mb-3 flex items-center justify-center">
-              <Search className="w-6 h-6 text-warning" />
-            </div>
-            <h3 className="font-semibold text-foreground mb-1 text-sm">New Leads</h3>
-            <p className="text-xl font-bold text-warning">8</p>
-          </div>
         </motion.div>
       </motion.div>
     </div>

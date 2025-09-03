@@ -23,27 +23,27 @@ const LoginScreen = () => {
 
   const handleSubmit = () => {
     if (!formData.email || !formData.password) {
-      toast({
-        title: "Required Fields",
-        description: "Please fill in all required fields",
-        variant: "destructive",
-      });
+      // toast({
+      //   title: "Required Fields",
+      //   description: "Please fill in all required fields",
+      //   variant: "destructive",
+      // });
       return;
     }
 
-    toast({
-      title: "Welcome!",
-      description: "Login successful",
-    });
+    // toast({
+    //   title: "Welcome!",
+    //   description: "Login successful",
+    // });
 
     navigate("/app");
   };
 
   const handleSocialLogin = (provider: string) => {
-    toast({
-      title: `${provider} Login`,
-      description: "Redirecting to social login...",
-    });
+    // toast({
+    //   title: `${provider} Login`,
+    //   description: "Redirecting to social login...",
+    // });
     // Simulate social login
     setTimeout(() => navigate("/app"), 1000);
   };

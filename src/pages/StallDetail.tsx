@@ -69,15 +69,7 @@ const StallDetail = () => {
 
   const handleLike = () => {
     toggleHeart(stallData);
-    if (!isLiked(stallData.id)) {
-      setShowQueryModal(true);
-    }
-    toast({
-      title: isLiked(stallData.id) ? "Removed from interests" : "Added to interests",
-      description: isLiked(stallData.id)
-        ? `${stallData.name} removed from your interests`
-        : `${stallData.name} added to your interests`,
-    });
+    setShowQueryModal(true); // Always show modal when heart is clicked
   };
 
   const handleAttractionClick = (attractionId) => {
@@ -86,29 +78,20 @@ const StallDetail = () => {
 
   const handleAttractionHeartClick = (attraction) => {
     toggleHeart(attraction);
-    toast({
-      title: isLiked(attraction.id) ? "Removed from interests" : "Added to interests",
-      description: isLiked(attraction.id)
-        ? `${attraction.name} removed from your interests`
-        : `${attraction.name} added to your interests`,
-    });
   };
 
   const handleQuerySubmit = () => {
-    if (!query.trim()) {
-      toast({
-        title: "Empty Query",
-        description: "Please enter your query before submitting",
-        variant: "destructive",
-      });
-      return;
+    if (query.trim()) {
+      // Optionally handle query submission logic here (e.g., API call)
+      setQuery("");
     }
-    toast({
-      title: "Query Submitted",
-      description: "Your query has been sent successfully",
-    });
-    setQuery("");
     setShowQueryModal(false);
+    navigate("/app/interest"); // Navigate to interest page after submitting
+  };
+
+  const handleModalClose = () => {
+    setShowQueryModal(false);
+    navigate("/app/interest"); // Navigate to interest page when closing modal
   };
 
   const nextImage = () => {
@@ -122,11 +105,10 @@ const StallDetail = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background-secondary" 
-    style={{paddingBottom: '170px'}}>
+    <div className="min-h-screen bg-background-secondary pb-16">
       {/* Header */}
       <motion.div
-        className="sticky top-0 z-40 bg-gradient-primary text-white p-6 flex items-center justify-between shadow-elevated"
+        className="sticky top-0 z-40 bg-gradient-primary text-white px-6 flex items-center justify-between shadow-elevated"
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6 }}
@@ -274,8 +256,8 @@ const StallDetail = () => {
         </motion.div>
       </div>
       {/* Query Modal */}
-      <Dialog open={showQueryModal} onOpenChange={setShowQueryModal}>
-        <DialogContent className="mx-4 rounded-3xl">
+      <Dialog open={showQueryModal} onOpenChange={handleModalClose}>
+        <DialogContent className="rounded-3xl p-6">
           <DialogHeader>
             <DialogTitle className="text-center">Do you have any questions?</DialogTitle>
           </DialogHeader>
@@ -289,7 +271,7 @@ const StallDetail = () => {
             <div className="flex space-x-3">
               <Button
                 variant="outline"
-                onClick={() => setShowQueryModal(false)}
+                onClick={handleModalClose}
                 className="flex-1 border-input-border hover:bg-muted"
               >
                 Cancel

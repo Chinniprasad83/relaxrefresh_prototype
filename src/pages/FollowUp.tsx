@@ -84,10 +84,10 @@ const FollowUp = () => {
     // Simulate document upload
     setTimeout(() => {
       setUploadingDocument(false);
-      toast({
-        title: "Document Uploaded",
-        description: "Your document has been uploaded successfully",
-      });
+      // toast({
+      //   title: "Document Uploaded",
+      //   description: "Your document has been uploaded successfully",
+      // });
     }, 2000);
   };
 
@@ -96,7 +96,7 @@ const FollowUp = () => {
     style={{paddingBottom: '170px'}} /* Account for Dynamic Island */>
       {/* Header */}
       <motion.div
-        className="sticky top-0 z-40 bg-gradient-primary text-white p-6 shadow-elevated"
+        className="sticky top-0 z-40 bg-gradient-primary text-white px-6 pt-2 pb-1 shadow-elevated"
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6 }}

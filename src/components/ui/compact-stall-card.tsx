@@ -67,7 +67,7 @@ const CompactStallCard: React.FC<CompactStallCardProps> = ({
             </div>
             
             {/* Heart Button */}
-            {onHeartClick && (
+            {/* {onHeartClick && (
               <Button
                 variant="ghost"
                 size="sm"
@@ -84,7 +84,7 @@ const CompactStallCard: React.FC<CompactStallCardProps> = ({
                   )} 
                 />
               </Button>
-            )}
+            )} */}
           </div>
 
           {/* Details Grid */}

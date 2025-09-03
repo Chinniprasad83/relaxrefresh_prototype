@@ -33,7 +33,7 @@ const BottomNavigation = () => {
       animate={{ y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
-      <div className="flex items-center justify-around py-3 pb-6">
+      <div className="flex items-center justify-around py-2">
         {tabs.map((tab) => {
           const Icon = tab.icon;
           const active = isActive(tab.path);
@@ -42,16 +42,16 @@ const BottomNavigation = () => {
             <button
               key={tab.id}
               onClick={() => navigate(tab.path)}
-              className="relative flex flex-col items-center py-3 px-6 min-w-0 flex-1"
+              className="relative flex flex-col items-center py-2 px-6 min-w-0 flex-1"
             >
               {/* Active Background */}
               {active && (
                 <motion.div
-                  className="absolute inset-0 bg-primary/10 rounded-2xl mx-6"
+                  className="absolute inset-0 bg-primary/10 rounded-2xl mx-8"
                   layoutId="activeTab"
                   initial={false}
                   transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                  style={{ height: "82px" }}
+                  style={{ height: "50px" }}
                 />
               )}
 
@@ -66,7 +66,7 @@ const BottomNavigation = () => {
               >
                 <Icon
                   className={cn(
-                    "w-6 h-6 transition-smooth",
+                    "w-5 h-5 transition-smooth",
                     active ? "text-primary" : "text-muted-foreground"
                   )}
                 />
