@@ -11,7 +11,7 @@ export const mockStallData = [
     supplier: "Indian oil",
     image: "/HP_2.jpeg",
     location: "Naikar Travan, THINDIVANAM",
-    vehiclesPerDay: 42958,
+    vehiclesPerDay: 4958,
     revenue: "4,33,789.58",
     description:
       "On key national highways connecting Chennai with southern and western Tamil Nadu, as well as Bengaluru.",
@@ -59,8 +59,8 @@ export const mockStallData = [
     supplier: "IOCL",
     image: "/indian_oil_4.jpeg",
     location: "GST Road, Villupuram",
-    vehiclesPerDay: 35984,
-    revenue: "₹2,500.00",
+    vehiclesPerDay: 3984,
+    revenue: "3,48,676.84",
     description:
       "Located on the busy GST Road, this Indian Oil station serves as a key refueling point for both commercial and private vehicles.",
     highlights: [
@@ -99,8 +99,8 @@ export const mockStallData = [
     supplier: "BPCL",
     image: "/sample_1.jpg",
     location: "Avenue Road, Madurai",
-    vehiclesPerDay: 50984,
-    revenue: "₹4,000.00",
+    vehiclesPerDay: 5984,
+    revenue: "5,23,678.84",
     description:
       "A well-positioned fuel station in the heart of Madurai, catering to local commuters and tourists alike.",
     highlights: [
@@ -139,8 +139,8 @@ export const mockStallData = [
     supplier: "HPCL",
     image: "/sample_6.jpg",
     location: "Ring Road, Chennai",
-    vehiclesPerDay: 60958,
-    revenue: "₹5,200.00",
+    vehiclesPerDay: 2958,
+    revenue: "2,58,862.58",
     description:
       "Strategically located on Chennai's Ring Road, this station serves a high volume of intercity travelers.",
     highlights: [

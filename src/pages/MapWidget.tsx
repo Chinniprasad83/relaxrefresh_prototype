@@ -13,13 +13,15 @@ type Props = {
   query?: string
   /** Called when the inline map search bar is used */
   onSearch?: (q: string) => void
+  /** Called when a stall/plot is clicked on the map */
+  onStallClick?: (stallId?: number) => void
   selectedState?: string
   selectedCity?: string
   selectedSupplier?: string
 }
 
 // Simple iframe-only MapWidget that includes a search overlay.
-export default function MapWidget({ lat, lng, zoom = 12, className, query, radius = 50, onSearch, selectedState, selectedCity, selectedSupplier }: Props) {
+export default function MapWidget({ lat, lng, zoom = 12, className, query, radius = 50, onSearch, onStallClick, selectedState, selectedCity, selectedSupplier }: Props) {
   const [local, setLocal] = useState(() => {
     try {
       // Prefer explicit prop, then sessionStorage (so back button restores), then empty
@@ -172,8 +174,13 @@ export default function MapWidget({ lat, lng, zoom = 12, className, query, radiu
   }
 
   function openDetails() {
-    // Navigate to the details page and pass the default item in location state.
-    navigate('/details', { state: { item: defaultItem } })
+    // Use the onStallClick callback if provided, otherwise fallback to original behavior
+    if (onStallClick) {
+      onStallClick(1); // Default to stall ID 1
+    } else {
+      // Original fallback behavior
+      navigate('/details', { state: { item: defaultItem } })
+    }
   }
 
   return (

@@ -36,6 +36,10 @@ const StallsList = () => {
     // Handle map search functionality if needed
   };
 
+  const handleMapStallClick = (stallId) => {
+    navigate(`/app/stall/${stallId || 1}`);
+  };
+
   return (
     <div className="min-h-screen bg-background-secondary" style={{ paddingBottom: "170px" }}>
       {/* Header */}
@@ -94,6 +98,7 @@ const StallsList = () => {
                 selectedCity={selectedCity}
                 selectedSupplier={selectedSupplier}
                 onSearch={handleMapSearch}
+                onStallClick={handleMapStallClick}
               />
             </motion.div>
           </TabsContent>
