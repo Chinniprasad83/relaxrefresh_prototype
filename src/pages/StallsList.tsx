@@ -40,7 +40,7 @@ const StallsList = () => {
     <div className="min-h-screen bg-background-secondary" style={{ paddingBottom: "170px" }}>
       {/* Header */}
       <motion.div
-        className="sticky top-0 z-40 bg-gradient-primary text-white px-4 py-4 shadow-elevated"
+        className="sticky top-0 z-40 bg-gradient-primary text-white px-6 py-2 shadow-elevated"
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6 }}
@@ -55,10 +55,11 @@ const StallsList = () => {
             <ArrowLeft className="w-6 h-6" />
           </Button>
           <h1 className="text-lg font-semibold">Found Stalls</h1>
-          <Button
+          <Button 
             variant="ghost"
             size="icon"
             className="text-white hover:bg-white/10"
+            onClick={() => navigate("/app")}
           >
             <Search className="w-5 h-5" />
           </Button>

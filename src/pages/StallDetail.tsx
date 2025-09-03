@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import {
   ArrowLeft,
   Heart,
   Car,
-  DollarSign,
   Star,
   ChevronLeft,
   ChevronRight,
+  IndianRupee,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -27,10 +27,12 @@ const StallDetail = () => {
   const [query, setQuery] = useState("");
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
+  // Track stall to be liked only after query submit
+  const [pendingStall, setPendingStall] = useState<any>(null);
+
   // Find stall data by ID
   const stallData = mockStallData.find((stall) => stall.id === id) || null;
 
-  // Handle case where stall is not found
   if (!stallData) {
     return (
       <div className="min-h-screen bg-background-secondary">
@@ -67,34 +69,44 @@ const StallDetail = () => {
     );
   }
 
+  // Handle heart click
   const handleLike = () => {
-    const wasLiked = isLiked(stallData.id); // Check if stall was liked before toggling
-    toggleHeart(stallData);
-    if (!wasLiked) {
-      setShowQueryModal(true); // Show dialog only when liking (not already liked)
+    if (isLiked(stallData.id)) {
+      // If already liked → remove immediately
+      toggleHeart(stallData);
+    } else {
+      // If not liked → open query modal
+      setPendingStall(stallData);
+      setShowQueryModal(true);
     }
   };
 
-  const handleAttractionClick = (attractionId) => {
+  const handleAttractionClick = (attractionId: string) => {
     navigate(`/app/stall/${attractionId}`);
   };
 
-  const handleAttractionHeartClick = (attraction) => {
+  const handleAttractionHeartClick = (attraction: any) => {
     toggleHeart(attraction);
   };
 
   const handleQuerySubmit = () => {
-    if (query.trim()) {
-      // Optionally handle query submission logic here (e.g., API call)
+    if (pendingStall) {
+      toggleHeart(pendingStall); // Add to interests
       setQuery("");
+      setPendingStall(null);
+      setShowQueryModal(false);
+
+      // Delay navigation slightly to let state update
+      setTimeout(() => {
+        navigate("/app/interest");
+      }, 100);
     }
-    setShowQueryModal(false);
-    navigate("/app/interest"); // Navigate to interest page after submitting
   };
 
-  const handleModalClose = () => {
+  const handleModalCancel = () => {
+    setQuery("");
+    setPendingStall(null);
     setShowQueryModal(false);
-    navigate("/app/interest"); // Navigate to interest page when closing modal
   };
 
   const nextImage = () => {
@@ -111,7 +123,7 @@ const StallDetail = () => {
     <div className="min-h-screen bg-background-secondary pb-16">
       {/* Header */}
       <motion.div
-        className="sticky top-0 z-40 bg-gradient-primary text-white px-6 flex items-center justify-between shadow-elevated"
+        className="sticky top-0 z-40 bg-gradient-primary text-white px-6 py-2 flex items-center justify-between shadow-elevated"
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6 }}
@@ -136,6 +148,7 @@ const StallDetail = () => {
           />
         </Button>
       </motion.div>
+
       <div className="pb-6">
         {/* Image Carousel */}
         <motion.div
@@ -179,9 +192,8 @@ const StallDetail = () => {
               <button
                 key={index}
                 onClick={() => setCurrentImageIndex(index)}
-                className={`w-2 h-2 rounded-full transition-smooth ${
-                  index === currentImageIndex ? "bg-white" : "bg-white/50"
-                }`}
+                className={`w-2 h-2 rounded-full transition-smooth ${index === currentImageIndex ? "bg-white" : "bg-white/50"
+                  }`}
               />
             ))}
           </div>
@@ -212,7 +224,7 @@ const StallDetail = () => {
             </div>
             <div className="bg-card rounded-2xl p-4 text-center shadow-card">
               <div className="w-12 h-12 bg-success/10 rounded-xl mx-auto mb-3 flex items-center justify-center">
-                <DollarSign className="w-6 h-6 text-success" />
+                <IndianRupee  className="w-6 h-6 text-success" />
               </div>
               <p className="text-2xl font-bold text-foreground">{stallData.revenue}</p>
               <p className="text-sm text-muted-foreground">Revenue</p>
@@ -259,7 +271,7 @@ const StallDetail = () => {
         </motion.div>
       </div>
       {/* Query Modal */}
-      <Dialog open={showQueryModal} onOpenChange={handleModalClose}>
+      <Dialog open={showQueryModal} onOpenChange={setShowQueryModal}>
         <DialogContent className="rounded-3xl p-6">
           <DialogHeader>
             <DialogTitle className="text-center">Do you have any questions?</DialogTitle>
@@ -274,7 +286,7 @@ const StallDetail = () => {
             <div className="flex space-x-3">
               <Button
                 variant="outline"
-                onClick={handleModalClose}
+                onClick={handleModalCancel}
                 className="flex-1 border-input-border hover:bg-muted"
               >
                 Cancel

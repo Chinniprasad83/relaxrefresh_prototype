@@ -16,7 +16,7 @@ const NotFound = () => {
   }, [location.pathname]);
 
   return (
-    <div className="mobile-container min-h-screen bg-gradient-primary flex items-center justify-center relative overflow-hidden">
+    <div className="w-full min-h-screen bg-gradient-primary flex items-center justify-center relative overflow-hidden">
       {/* Background Animation */}
       <div className="absolute inset-0">
         {[...Array(4)].map((_, i) => (
@@ -91,6 +91,7 @@ const NotFound = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1 }}
         >
+          {/* Go Back button */}
           <Button
             onClick={() => navigate(-1)}
             className="w-full bg-white text-primary hover:bg-white/90 font-semibold py-6 rounded-2xl transition-smooth"
@@ -99,10 +100,10 @@ const NotFound = () => {
             Go Back
           </Button>
 
+          {/* Return to Home button */}
           <Button
             onClick={() => navigate("/")}
-            variant="outline"
-            className="w-full border-2 border-white/30 text-white hover:bg-white/10 font-semibold py-6 rounded-2xl transition-smooth"
+            className="w-full bg-white text-primary hover:bg-white/90 font-semibold py-6 rounded-2xl transition-smooth"
           >
             Return to Home
           </Button>

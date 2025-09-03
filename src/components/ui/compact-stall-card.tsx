@@ -53,9 +53,9 @@ const CompactStallCard: React.FC<CompactStallCardProps> = ({
             alt={stall.name}
             className="w-16 h-16 rounded-xl object-cover"
           />
-          <div className="absolute top-1 right-1 bg-white/90 backdrop-blur-sm rounded-full px-1.5 py-0.5">
+          {/* <div className="absolute top-1 right-1 bg-white/90 backdrop-blur-sm rounded-full px-1.5 py-0.5">
             <span className="text-[8px] font-semibold text-foreground">{stall.supplier}</span>
-          </div>
+          </div> */}
         </div>
 
         {/* Content */}

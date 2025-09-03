@@ -28,8 +28,8 @@ const Profile = () => {
   const [showAvatarUpload, setShowAvatarUpload] = useState(false);
 
   const profileData = {
-    name: "John Doe",
-    email: "john.doe@example.com",
+    name: "Sravanan",
+    email: "sravanan@gmail.com.com",
     avatar: avatar,
   };
 
@@ -125,7 +125,7 @@ const Profile = () => {
     style={{paddingBottom: '170px'}} >
       {/* Header */}
       <motion.div
-        className="sticky top-0 z-40 bg-gradient-primary text-white px-6 shadow-elevated"
+        className="sticky top-0 z-40 bg-gradient-primary text-white px-6 py-2 shadow-elevated"
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6 }}

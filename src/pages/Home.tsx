@@ -10,7 +10,7 @@ import { useToast } from "@/hooks/use-toast";
 const Home = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const [useCurrentLocation, setUseCurrentLocation] = useState(false);
+  const [useCurrentLocation, setUseCurrentLocation] = useState(true);
   const [selectedState, setSelectedState] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
   const [selectedSupplier, setSelectedSupplier] = useState("");
