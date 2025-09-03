@@ -24,7 +24,6 @@ type Props = {
 export default function MapWidget({ lat, lng, zoom = 12, className, query, radius = 50, onSearch, onStallClick, selectedState, selectedCity, selectedSupplier }: Props) {
   const [local, setLocal] = useState(() => {
     try {
-      // Prefer explicit prop, then sessionStorage (so back button restores), then empty
       return query ?? sessionStorage.getItem('areaQuery') ?? ''
     } catch (e) {
       return query ?? ''
@@ -33,6 +32,7 @@ export default function MapWidget({ lat, lng, zoom = 12, className, query, radiu
 
   const [pos, setPos] = useState<{ lat: number; lng: number } | null>(null)
   const [permissionDenied, setPermissionDenied] = useState(false)
+  const [isReverseGeocoding, setIsReverseGeocoding] = useState(false)
 
   function requestLocation() {
     if (typeof navigator === 'undefined' || !navigator.geolocation) {
@@ -51,7 +51,6 @@ export default function MapWidget({ lat, lng, zoom = 12, className, query, radiu
       },
       (err) => {
         setPermissionDenied(true)
-        console.warn('geolocation error', err)
       },
       { enableHighAccuracy: false, maximumAge: 1000 * 60 * 5, timeout: 5000 }
     )
@@ -63,10 +62,13 @@ export default function MapWidget({ lat, lng, zoom = 12, className, query, radiu
   }, [])
 
   async function reverseGeocodeAndPrefill(lat: number, lng: number) {
+    setIsReverseGeocoding(true)
     try {
       const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${encodeURIComponent(lat)}&lon=${encodeURIComponent(lng)}`
       const res = await fetch(url)
-      if (!res.ok) return
+      if (!res.ok) {
+        return
+      }
       const data = await res.json()
       const addr = data?.address || {}
       const place = addr.city || addr.town || addr.village || addr.hamlet || addr.county || ''
@@ -80,22 +82,23 @@ export default function MapWidget({ lat, lng, zoom = 12, className, query, radiu
       if (selectedSupplier && selectedSupplier.trim()) {
         areaLabel = areaLabel ? `${areaLabel}, ${selectedSupplier}` : selectedSupplier
       }
-      // Do not overwrite an explicit textual query prop or an already-entered local value.
-      const hasExplicitQuery = query && query.trim().length > 0
-      const hasLocalValue = local && local.trim().length > 0
-      if (!hasExplicitQuery && !hasLocalValue) {
+      // Don't treat "Current Location" as an explicit query
+      const hasExplicitQuery = query && query.trim().length > 0 && query.trim() !== 'Current Location'
+      if (!hasExplicitQuery) {
         if (areaLabel && areaLabel.trim().length > 0) {
           setLocal(areaLabel)
         } else {
-          // fallback to lat,lng short string
-          setLocal(`${lat.toFixed(4)},${lng.toFixed(4)}`)
+          const coordsString = `${lat.toFixed(4)},${lng.toFixed(4)}`
+          setLocal(coordsString)
         }
       }
     } catch (err) {
-      // ignore reverse geocode errors; keep textbox empty or fallback to coords
-      // eslint-disable-next-line no-console
-      console.warn('reverse geocode failed', err)
-  if (!query && !(local && local.trim().length > 0) && lat && lng) setLocal(`${lat.toFixed(4)},${lng.toFixed(4)}`)
+      if (!query && !(local && local.trim().length > 0) && lat && lng) {
+        const coordsString = `${lat.toFixed(4)},${lng.toFixed(4)}`
+        setLocal(coordsString)
+      }
+    } finally {
+      setIsReverseGeocoding(false)
     }
   }
 
@@ -109,25 +112,38 @@ export default function MapWidget({ lat, lng, zoom = 12, className, query, radiu
   const effectiveRadius = Math.min(Math.max(typeof radius === 'number' ? radius : 50, 0), 50)
 
   // Prefer selectedState/city/supplier if provided, then explicit `query` prop, then the local textbox value (`local`), then coords.
+  // Updated logic: Don't show "Current Location" if we have coordinates and reverse geocoding is complete
   let textualQuery = '';
   let overlayLabel = '';
-  if (selectedState && selectedCity && selectedSupplier && selectedState.trim() && selectedCity.trim() && selectedSupplier.trim()) {
+  if (
+    selectedState && selectedCity && selectedSupplier &&
+    selectedState.trim() && selectedCity.trim() && selectedSupplier.trim()
+  ) {
     textualQuery = `${selectedCity}, ${selectedState}, ${selectedSupplier}`;
-    overlayLabel = `${selectedCity}, ${selectedState}, ${selectedSupplier}`;
-  } else if (selectedState && selectedCity && selectedState.trim() && selectedCity.trim()) {
+    overlayLabel = textualQuery;
+  } else if (
+    selectedState && selectedCity &&
+    selectedState.trim() && selectedCity.trim()
+  ) {
     textualQuery = `${selectedCity}, ${selectedState}`;
-    overlayLabel = `${selectedCity}, ${selectedState}`;
-  } else if (query && query.trim().length > 0) {
+    overlayLabel = textualQuery;
+  } else if (
+    query && query.trim().length > 0 &&
+    query.trim().toLowerCase() !== 'current location'
+  ) {
     textualQuery = query.trim();
-    overlayLabel = query.trim();
+    overlayLabel = textualQuery;
   } else if (local && local.trim().length > 0) {
     textualQuery = local.trim();
-    overlayLabel = local.trim();
+    overlayLabel = textualQuery;
   } else if (effectiveLat != null && effectiveLng != null) {
-  // Always use local (reverse geocoded value) if available, otherwise 'Current Location'.
-  let areaLabel = local && local.trim().length > 0 ? local.trim() : 'Current Location';
-  textualQuery = areaLabel;
-  overlayLabel = areaLabel;
+    if (isReverseGeocoding) {
+      textualQuery = 'Getting location...';
+      overlayLabel = textualQuery;
+    } else {
+      textualQuery = 'Current Location';
+      overlayLabel = textualQuery;
+    }
   }
 
   // If using current location, append supplier to the query if present
@@ -140,23 +156,36 @@ export default function MapWidget({ lat, lng, zoom = 12, className, query, radiu
     }
   }
 
-  // Include radius in the query when available. Prefer textual query; otherwise use coords.
+  // Prefer selectedState/city/supplier for plotting if provided
   let mapQuery = '';
-  if (textualQuery.startsWith('Current Location') && coordsAvailable) {
+  if (
+    selectedState && selectedCity && selectedSupplier &&
+    selectedState.trim() && selectedCity.trim() && selectedSupplier.trim()
+  ) {
+    mapQuery = `${selectedSupplier} petrol bunk within ${effectiveRadius} km of ${selectedCity}, ${selectedState}`;
+  } else if (
+    selectedState && selectedCity &&
+    selectedState.trim() && selectedCity.trim()
+  ) {
+    mapQuery = `petrol bunk within ${effectiveRadius} km of ${selectedCity}, ${selectedState}`;
+  } else if (
+    query && query.trim().length > 0 &&
+    query.trim().toLowerCase() !== 'current location'
+  ) {
+    mapQuery = `petrol bunk within ${effectiveRadius} km of ${query.trim()}`;
+  } else if (effectiveLat != null && effectiveLng != null) {
     if (selectedSupplier && selectedSupplier.trim()) {
-      // Supplier and current location only: put supplier first for better results
       mapQuery = `${selectedSupplier} petrol bunk within ${effectiveRadius} km of ${effectiveLat},${effectiveLng}`;
     } else {
       mapQuery = `petrol bunk within ${effectiveRadius} km of ${effectiveLat},${effectiveLng}`;
     }
-  } else if (textualQuery) {
-    mapQuery = `petrol bunk within ${effectiveRadius} km of ${textualQuery}`;
-  } else if (coordsAvailable) {
-    mapQuery = `petrol bunk within ${effectiveRadius} km of ${locationQuery}`;
+  } else if (local && local.trim().length > 0) {
+    mapQuery = `petrol bunk within ${effectiveRadius} km of ${local.trim()}`;
+  } else {
+    mapQuery = 'petrol bunk';
   }
 
-  // If we have coords, center the map on them. If not, `mapQuery` may be empty.
-  const centerParam = (effectiveLat && effectiveLng) ? `&center=${effectiveLat},${effectiveLng}` : ''
+  const centerParam = (effectiveLat && effectiveLng) ? `&center=${effectiveLat},${effectiveLng}` : '';
   const src = `https://www.google.com/maps?q=${encodeURIComponent(mapQuery)}&z=${zoom}&output=embed${centerParam}`
   const navigate = useNavigate()
 
