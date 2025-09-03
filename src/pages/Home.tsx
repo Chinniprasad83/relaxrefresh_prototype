@@ -52,7 +52,21 @@ const Home = () => {
       return;
     }
 
-    navigate("/app/stalls");
+    // Create area query for the map
+    const areaQuery = useCurrentLocation 
+      ? "Current Location" 
+      : `${selectedCity}, ${selectedState}`;
+
+    // Navigate with search parameters
+    navigate("/app/stalls", {
+      state: {
+        useCurrentLocation,
+        selectedState,
+        selectedCity,
+        selectedSupplier,
+        areaQuery
+      }
+    });
   };
 
   const isSearchEnabled = () => {

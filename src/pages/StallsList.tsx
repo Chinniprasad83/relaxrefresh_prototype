@@ -1,18 +1,28 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { MapPin, List, Search, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import CompactStallCard from "@/components/ui/compact-stall-card";
-import GoogleMap from "@/components/ui/google-map";
+import MapWidget from "@/pages/MapWidget";
 import { useInterest } from "@/hooks/use-interest";
 import { mockStallData } from "@/data/mockStallData";
 
 const StallsList = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { toggleHeart, isLiked } = useInterest();
   const [activeTab, setActiveTab] = useState("map");
+
+  // Get search parameters from navigation state (if available)
+  const searchParams = location.state || {};
+  const {
+    selectedState = "",
+    selectedCity = "",
+    selectedSupplier = "",
+    areaQuery = ""
+  } = searchParams;
 
   const handleStallClick = (stallId) => {
     navigate(`/app/stall/${stallId}`);
@@ -22,11 +32,15 @@ const StallsList = () => {
     toggleHeart(stall);
   };
 
+  const handleMapSearch = (query) => {
+    // Handle map search functionality if needed
+  };
+
   return (
     <div className="min-h-screen bg-background-secondary" style={{ paddingBottom: "170px" }}>
       {/* Header */}
       <motion.div
-        className="sticky top-0 z-40 bg-gradient-primary text-white px-4 shadow-elevated"
+        className="sticky top-0 z-40 bg-gradient-primary text-white px-4 py-4 shadow-elevated"
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6 }}
@@ -71,9 +85,14 @@ const StallsList = () => {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5 }}
             >
-              <GoogleMap
-                currentLocation={{ lat: 12.2345, lng: 79.6543 }}
-                onStallClick={handleStallClick}
+              <MapWidget
+                radius={50}
+                zoom={14}
+                query={areaQuery}
+                selectedState={selectedState}
+                selectedCity={selectedCity}
+                selectedSupplier={selectedSupplier}
+                onSearch={handleMapSearch}
               />
             </motion.div>
           </TabsContent>
